@@ -1,6 +1,8 @@
 import gradio as gr
 import gemini_gradio
 import openai_gradio
+import anthropic_gradio
+
 
 with gr.Blocks() as demo:
     with gr.Tab("Gemini"):
@@ -13,6 +15,12 @@ with gr.Blocks() as demo:
         gr.load(
         name='gpt-4-turbo',
         src=openai_gradio.registry,
+        accept_token=True
+        )
+    with gr.Tab("Claude"):
+        gr.load(
+        name='claude-3-opus-20240229',
+        src=anthropic_gradio.registry,
         accept_token=True
         )
 
