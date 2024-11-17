@@ -9,10 +9,36 @@ import hyperbolic_gradio
 
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Gemini"):
-        gr.load(
-            name='gemini-1.5-pro-002',
+        with gr.Row():
+            gemini_model = gr.Dropdown(
+                choices=[
+                    'gemini-1.5-flash',        # Fast and versatile performance
+                    'gemini-1.5-flash-8b',     # High volume, lower intelligence tasks
+                    'gemini-1.5-pro',           # Complex reasoning tasks
+                    'gemini-exp-1114'          # Quality improvements
+                ],
+                value='gemini-1.5-pro',      # Default to the most advanced model
+                label="Select Gemini Model",
+                interactive=True
+            )
+        
+        gemini_interface = gr.load(
+            name=gemini_model.value,
             src=gemini_gradio.registry,
-             accept_token=True
+            accept_token=True
+        )
+        
+        def update_gemini_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=gemini_gradio.registry,
+                accept_token=True
+            )
+        
+        gemini_model.change(
+            fn=update_gemini_model,
+            inputs=[gemini_model],
+            outputs=[gemini_interface]
         )
     with gr.Tab("ChatGPT"):
         with gr.Row():
