@@ -23,7 +23,7 @@ with gr.Blocks() as demo:
         src=anthropic_gradio.registry,
         accept_token=True
         )
-     with gr.Tab("Meta Llama 405B"):
+    with gr.Tab("Meta Llama 405B"):
         gr.load(
         name='Meta-Llama-3.1-405B-Instruct',
         src=sambanova_gradio.registry,
