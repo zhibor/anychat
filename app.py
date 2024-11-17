@@ -4,6 +4,7 @@ import openai_gradio
 import anthropic_gradio
 import sambanova_gradio
 import xai_gradio
+import hyperbolic_gradio
 
 
 with gr.Blocks() as demo:
@@ -37,6 +38,12 @@ with gr.Blocks() as demo:
         src=xai_gradio.registry,
         accept_token=True
         )
+    with gr.Tab("Qwen2.5 72B"):
+        gr.load(
+        name='Qwen/Qwen2.5-72B-Instruct',
+        src=hyperbolic_gradio.registry,
+        accept_token=True
+    )
 
 
 demo.launch()
