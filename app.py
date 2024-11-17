@@ -2,6 +2,7 @@ import gradio as gr
 import gemini_gradio
 import openai_gradio
 import anthropic_gradio
+import sambanova_gradio
 
 
 with gr.Blocks() as demo:
