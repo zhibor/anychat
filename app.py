@@ -30,7 +30,8 @@ with gr.Blocks(fill_height=True) as demo:
         gr.load(
         name='Meta-Llama-3.1-405B-Instruct',
         src=sambanova_gradio.registry,
-        accept_token=True
+        accept_token=True,
+        multimodal = True
         )
     with gr.Tab("Grok"):
         gr.load(
