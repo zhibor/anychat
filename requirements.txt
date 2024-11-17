@@ -4,3 +4,4 @@ git+https://github.com/AK391/anthropic-gradio.git
 sambanova-gradio
 git+https://github.com/AK391/xai-gradio.git
 git+https://github.com/AK391/hyperbolic-gradio.git
+git+https://github.com/AK391/perplexity-gradio.git

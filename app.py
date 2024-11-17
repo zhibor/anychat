@@ -5,6 +5,8 @@ import anthropic_gradio
 import sambanova_gradio
 import xai_gradio
 import hyperbolic_gradio
+import perplexity_gradio
+
 
 
 with gr.Blocks(fill_height=True) as demo:
@@ -169,6 +171,53 @@ with gr.Blocks(fill_height=True) as demo:
         src=hyperbolic_gradio.registry,
         accept_token=True
     )
+    with gr.Tab("Perplexity"):
+        with gr.Row():
+            perplexity_model = gr.Dropdown(
+                choices=[
+                    # Sonar Models (Online)
+                    'llama-3.1-sonar-small-128k-online',    # 8B params
+                    'llama-3.1-sonar-large-128k-online',    # 70B params
+                    'llama-3.1-sonar-huge-128k-online',     # 405B params
+                    # Sonar Models (Chat)
+                    'llama-3.1-sonar-small-128k-chat',      # 8B params
+                    'llama-3.1-sonar-large-128k-chat',      # 70B params
+                    # Open Source Models
+                    'llama-3.1-8b-instruct',                # 8B params
+                    'llama-3.1-70b-instruct'                # 70B params
+                ],
+                value='llama-3.1-sonar-large-128k-online',  # Default to large online model
+                label="Select Perplexity Model",
+                interactive=True
+            )
+        
+        perplexity_interface = gr.load(
+            name=perplexity_model.value,
+            src=perplexity_gradio.registry,
+            accept_token=True
+        )
+        
+        def update_perplexity_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=perplexity_gradio.registry,
+                accept_token=True
+            )
+        
+        perplexity_model.change(
+            fn=update_perplexity_model,
+            inputs=[perplexity_model],
+            outputs=[perplexity_interface]
+        )
+        
+        gr.Markdown("""
+        **Note:** Models are grouped into three categories:
+        - **Sonar Online Models**: Include search capabilities (beta access required)
+        - **Sonar Chat Models**: Standard chat models
+        - **Open Source Models**: Based on Hugging Face implementations
+        
+        For access to Online LLMs features, please fill out the [beta access form](https://forms.perplexity.ai).
+        """)
 
 
 demo.launch()
