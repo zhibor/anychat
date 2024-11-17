@@ -167,10 +167,11 @@ with gr.Blocks(fill_height=True) as demo:
         )
     with gr.Tab("Qwen2.5 72B"):
         gr.load(
-        name='Qwen/Qwen2.5-72B-Instruct',
-        src=hyperbolic_gradio.registry,
-        accept_token=True
-    )
+            name='Qwen/Qwen2.5-72B-Instruct',
+            src=hyperbolic_gradio.registry,
+            accept_token=True
+        )
+        gr.Markdown("**Note:** You need to use a Hyperbolic API key from [Hyperbolic](https://app.hyperbolic.xyz/).")
     with gr.Tab("Perplexity"):
         with gr.Row():
             perplexity_model = gr.Dropdown(
@@ -216,7 +217,7 @@ with gr.Blocks(fill_height=True) as demo:
         - **Sonar Chat Models**: Standard chat models
         - **Open Source Models**: Based on Hugging Face implementations
         
-        For access to Online LLMs features, please fill out the [beta access form](https://forms.perplexity.ai).
+        For access to Online LLMs features, please fill out the [beta access form](https://perplexity.typeform.com/apiaccessform?typeform-source=docs.perplexity.ai).
         """)
 
 
