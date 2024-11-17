@@ -1,2 +1,3 @@
 gemini-gradio
 openai-gradio
+git+https://github.com/AK391/anthropic-gradio.git
