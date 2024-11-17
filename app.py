@@ -17,8 +17,26 @@ with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("ChatGPT"):
         with gr.Row():
             model_choice = gr.Dropdown(
-                choices=['gpt-4-turbo', 'gpt-4', 'gpt-3.5-turbo'],
-                value='gpt-4-turbo',
+                choices=[
+                    'gpt-4o',                     # Most advanced model
+                    'gpt-4o-2024-08-06',          # Latest snapshot
+                    'gpt-4o-2024-05-13',          # Original snapshot
+                    'chatgpt-4o-latest',          # Latest ChatGPT version
+                    'gpt-4o-mini',                # Small model
+                    'gpt-4o-mini-2024-07-18',     # Latest mini version
+                    'o1-preview',                 # Reasoning model
+                    'o1-preview-2024-09-12',      # Latest o1 model snapshot
+                    'o1-mini',                    # Faster reasoning model
+                    'o1-mini-2024-09-12',         # Latest o1-mini model snapshot
+                    'gpt-4-turbo',                # Latest GPT-4 Turbo model
+                    'gpt-4-turbo-2024-04-09',     # Latest GPT-4 Turbo snapshot
+                    'gpt-4-turbo-preview',         # GPT-4 Turbo preview model
+                    'gpt-4-0125-preview',         # GPT-4 Turbo preview model for laziness
+                    'gpt-4-1106-preview',         # Improved instruction following model
+                    'gpt-4',                      # Standard GPT-4 model
+                    'gpt-4-0613'                  # Snapshot of GPT-4 from June 2023
+                ],
+                value='gpt-4o',                 # Default to the most advanced model
                 label="Select Model",
                 interactive=True
             )
@@ -44,8 +62,14 @@ with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Claude"):
         with gr.Row():
             claude_model = gr.Dropdown(
-                choices=['claude-3-sonnet-20240229', 'claude-3-opus-20240229'],
-                value='claude-3-sonnet-20240229',
+                choices=[
+                    'claude-3-5-sonnet-20241022',  # Latest Sonnet
+                    'claude-3-5-haiku-20241022',   # Latest Haiku
+                    'claude-3-opus-20240229',       # Opus
+                    'claude-3-sonnet-20240229',     # Previous Sonnet
+                    'claude-3-haiku-20240307'       # Previous Haiku
+                ],
+                value='claude-3-5-sonnet-20241022',  # Default to latest Sonnet
                 label="Select Model",
                 interactive=True
             )
