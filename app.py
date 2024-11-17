@@ -15,23 +15,36 @@ with gr.Blocks(fill_height=True) as demo:
              accept_token=True
         )
     with gr.Tab("ChatGPT"):
+        with gr.Row():
+            model_choice = gr.Dropdown(
+                choices=['gpt-4-turbo', 'gpt-4', 'gpt-3.5-turbo'],
+                value='gpt-4-turbo',
+                label="Select Model"
+            )
         gr.load(
-        name='gpt-4-turbo',
-        src=openai_gradio.registry,
-        accept_token=True
+            name=model_choice.value,
+            src=openai_gradio.registry,
+            accept_token=True
         )
     with gr.Tab("Claude"):
+        with gr.Row():
+            claude_model = gr.Dropdown(
+                choices=['claude-3-sonnet-20240229', 'claude-3-opus-20240229'],
+                value='claude-3-sonnet-20240229',
+                label="Select Model"
+            )
         gr.load(
-        name='claude-3-opus-20240229',
-        src=anthropic_gradio.registry,
-        accept_token=True
+            name=claude_model.value,
+            src=anthropic_gradio.registry,
+            accept_token=True
         )
     with gr.Tab("Meta Llama-3.2-90B-Vision-Instruct"):
         gr.load(
-        name='Llama-3.2-90B-Vision-Instruct',
-        src=sambanova_gradio.registry,
-        accept_token=True,
-        multimodal = True
+            name='Llama-3.2-90B-Vision-Instruct',
+            src=sambanova_gradio.registry,
+            accept_token=True,
+            multimodal=True,
+            description="Requires SambaNova API key"
         )
     with gr.Tab("Grok"):
         gr.load(
