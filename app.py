@@ -19,24 +19,54 @@ with gr.Blocks(fill_height=True) as demo:
             model_choice = gr.Dropdown(
                 choices=['gpt-4-turbo', 'gpt-4', 'gpt-3.5-turbo'],
                 value='gpt-4-turbo',
-                label="Select Model"
+                label="Select Model",
+                interactive=True
             )
-        gr.load(
+            
+        chatgpt_interface = gr.load(
             name=model_choice.value,
             src=openai_gradio.registry,
             accept_token=True
+        )
+        
+        def update_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=openai_gradio.registry,
+                accept_token=True
+            )
+        
+        model_choice.change(
+            fn=update_model,
+            inputs=[model_choice],
+            outputs=[chatgpt_interface]
         )
     with gr.Tab("Claude"):
         with gr.Row():
             claude_model = gr.Dropdown(
                 choices=['claude-3-sonnet-20240229', 'claude-3-opus-20240229'],
                 value='claude-3-sonnet-20240229',
-                label="Select Model"
+                label="Select Model",
+                interactive=True
             )
-        gr.load(
+            
+        claude_interface = gr.load(
             name=claude_model.value,
             src=anthropic_gradio.registry,
             accept_token=True
+        )
+        
+        def update_claude_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=anthropic_gradio.registry,
+                accept_token=True
+            )
+        
+        claude_model.change(
+            fn=update_claude_model,
+            inputs=[claude_model],
+            outputs=[claude_interface]
         )
     with gr.Tab("Meta Llama-3.2-90B-Vision-Instruct"):
         gr.load(
