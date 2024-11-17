@@ -2,6 +2,6 @@ gemini-gradio
 openai-gradio
 git+https://github.com/AK391/anthropic-gradio.git
 sambanova-gradio
-git+https://github.com/AK391/xai-gradio.git
+xai-gradio
 hyperbolic-gradio
 perplexity-gradio
