@@ -7,7 +7,7 @@ import xai_gradio
 import hyperbolic_gradio
 
 
-with gr.Blocks() as demo:
+with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Gemini"):
         gr.load(
             name='gemini-1.5-pro-002',
