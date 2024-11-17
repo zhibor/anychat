@@ -26,9 +26,9 @@ with gr.Blocks(fill_height=True) as demo:
         src=anthropic_gradio.registry,
         accept_token=True
         )
-    with gr.Tab("Meta Llama 405B"):
+    with gr.Tab("Meta Llama-3.2-90B-Vision-Instruct"):
         gr.load(
-        name='Meta-Llama-3.1-405B-Instruct',
+        name='Llama-3.2-90B-Vision-Instruct',
         src=sambanova_gradio.registry,
         accept_token=True,
         multimodal = True
