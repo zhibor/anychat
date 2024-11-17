@@ -27,14 +27,12 @@ with gr.Blocks(fill_height=True) as demo:
         gemini_interface = gr.load(
             name=gemini_model.value,
             src=gemini_gradio.registry,
-            accept_token=True
         )
         
         def update_gemini_model(new_model):
             return gr.load(
                 name=new_model,
                 src=gemini_gradio.registry,
-                accept_token=True
             )
         
         gemini_model.change(
