@@ -1,5 +1,5 @@
 ---
-title: Openchat
+title: Anychat
 emoji: 🏢
 colorFrom: indigo
 colorTo: indigo
