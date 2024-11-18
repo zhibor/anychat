@@ -179,7 +179,13 @@ with gr.Blocks(fill_height=True) as demo:
             accept_token=True,
             fill_height=True
         )
-        gr.Markdown("**Note:** You need to use a Hyperbolic API key from [Hyperbolic](https://app.hyperbolic.xyz/).")
+        gr.Markdown("""
+        <div>
+            <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
+        </div>    
+                    
+        **Note:** This model is supported by Hyperbolic. You need to use a Hyperbolic API key from [Hyperbolic](https://app.hyperbolic.xyz/).
+        """)
     with gr.Tab("Perplexity"):
         with gr.Row():
             perplexity_model = gr.Dropdown(
@@ -236,7 +242,13 @@ with gr.Blocks(fill_height=True) as demo:
             accept_token=True,
             fill_height=True
         )
-        gr.Markdown("**Note:** You need to use a Hyperbolic API key from [Hyperbolic](https://app.hyperbolic.xyz/).")
+        gr.Markdown("""
+        <div>
+            <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
+        </div>    
+                    
+        **Note:** This model is supported by Hyperbolic. You need to use a Hyperbolic API key from [Hyperbolic](https://app.hyperbolic.xyz/).
+        """)
 
 demo.launch(ssr_mode=False)
 
