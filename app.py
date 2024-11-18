@@ -27,14 +27,14 @@ with gr.Blocks(fill_height=True) as demo:
         gemini_interface = gr.load(
             name=gemini_model.value,
             src=gemini_gradio.registry,
-            full_height=True
+            fill_height=True
         )
         
         def update_gemini_model(new_model):
             return gr.load(
                 name=new_model,
                 src=gemini_gradio.registry,
-                full_height=True
+                fill_height=True
             )
         
         gemini_model.change(
@@ -73,7 +73,7 @@ with gr.Blocks(fill_height=True) as demo:
             name=model_choice.value,
             src=openai_gradio.registry,
             accept_token=True,
-            full_height=True
+            fill_height=True
         )
         
         def update_model(new_model):
@@ -81,7 +81,7 @@ with gr.Blocks(fill_height=True) as demo:
                 name=new_model,
                 src=openai_gradio.registry,
                 accept_token=True,
-                full_height=True
+                fill_height=True
             )
         
         model_choice.change(
@@ -108,7 +108,7 @@ with gr.Blocks(fill_height=True) as demo:
             name=claude_model.value,
             src=anthropic_gradio.registry,
             accept_token=True,
-            full_height=True
+            fill_height=True
         )
         
         def update_claude_model(new_model):
@@ -116,7 +116,7 @@ with gr.Blocks(fill_height=True) as demo:
                 name=new_model,
                 src=anthropic_gradio.registry,
                 accept_token=True,
-                full_height=True
+                fill_height=True
             )
         
         claude_model.change(
@@ -146,7 +146,7 @@ with gr.Blocks(fill_height=True) as demo:
             src=sambanova_gradio.registry,
             accept_token=True,
             multimodal=True,
-            full_height=True
+            fill_height=True
         )
         
         def update_llama_model(new_model):
@@ -155,7 +155,7 @@ with gr.Blocks(fill_height=True) as demo:
                 src=sambanova_gradio.registry,
                 accept_token=True,
                 multimodal=True,
-                full_height=True
+                fill_height=True
             )
         
         llama_model.change(
@@ -170,14 +170,14 @@ with gr.Blocks(fill_height=True) as demo:
             name='grok-beta',
             src=xai_gradio.registry,
             accept_token=True,
-            full_height=True
+            fill_height=True
         )
     with gr.Tab("Qwen2.5 72B"):
         gr.load(
             name='Qwen/Qwen2.5-72B-Instruct',
             src=hyperbolic_gradio.registry,
             accept_token=True,
-            full_height=True
+            fill_height=True
         )
         gr.Markdown("**Note:** You need to use a Hyperbolic API key from [Hyperbolic](https://app.hyperbolic.xyz/).")
     with gr.Tab("Perplexity"):
@@ -204,7 +204,7 @@ with gr.Blocks(fill_height=True) as demo:
             name=perplexity_model.value,
             src=perplexity_gradio.registry,
             accept_token=True,
-            full_height=True
+            fill_height=True
         )
         
         def update_perplexity_model(new_model):
@@ -212,7 +212,7 @@ with gr.Blocks(fill_height=True) as demo:
                 name=new_model,
                 src=perplexity_gradio.registry,
                 accept_token=True,
-                full_height=True
+                fill_height=True
             )
         
         perplexity_model.change(
