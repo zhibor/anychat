@@ -264,7 +264,7 @@ with gr.Blocks(fill_height=True) as demo:
                     'open-mistral-nemo',             # Multilingual model (128k)
                     'open-codestral-mamba'           # Mamba-based coding model (256k)
                 ],
-                value='mistral-large-latest',    # Default to most capable model
+                value='pixtral-large-latest',    # pixtral for vision
                 label="Select Mistral Model",
                 interactive=True
             )
@@ -280,7 +280,7 @@ with gr.Blocks(fill_height=True) as demo:
                 name=new_model,
                 src=mistral_gradio.registry,
                 fill_height=True
-            )._render()
+            )
         
         mistral_model.change(
             fn=update_mistral_model,
