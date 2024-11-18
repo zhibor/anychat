@@ -145,7 +145,6 @@ with gr.Blocks(fill_height=True) as demo:
         llama_interface = gr.load(
             name=llama_model.value,
             src=sambanova_gradio.registry,
-            accept_token=True,
             multimodal=True,
             fill_height=True
         )
@@ -154,7 +153,6 @@ with gr.Blocks(fill_height=True) as demo:
             return gr.load(
                 name=new_model,
                 src=sambanova_gradio.registry,
-                accept_token=True,
                 multimodal=True,
                 fill_height=True
             )
