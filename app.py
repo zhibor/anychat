@@ -274,7 +274,6 @@ with gr.Blocks(fill_height=True) as demo:
         mistral_interface = gr.load(
             name=mistral_model.value,
             src=mistral_gradio.registry,
-            accept_token=True,
             fill_height=True
         )
         
@@ -282,7 +281,6 @@ with gr.Blocks(fill_height=True) as demo:
             return gr.load(
                 name=new_model,
                 src=mistral_gradio.registry,
-                accept_token=True,
                 fill_height=True
             )
         
