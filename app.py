@@ -176,7 +176,6 @@ with gr.Blocks(fill_height=True) as demo:
         gr.load(
             name='Qwen/Qwen2.5-72B-Instruct',
             src=hyperbolic_gradio.registry,
-            accept_token=True,
             fill_height=True
         )
         gr.Markdown("**Note:** You need to use a Hyperbolic API key from [Hyperbolic](https://app.hyperbolic.xyz/).")
@@ -233,7 +232,6 @@ with gr.Blocks(fill_height=True) as demo:
         gr.load(
             name='deepseek-ai/DeepSeek-V2.5',
             src=hyperbolic_gradio.registry,
-            accept_token=True,
             fill_height=True
         )
         gr.Markdown("**Note:** You need to use a Hyperbolic API key from [Hyperbolic](https://app.hyperbolic.xyz/).")
