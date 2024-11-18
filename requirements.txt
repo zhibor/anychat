@@ -5,3 +5,4 @@ sambanova-gradio
 xai-gradio
 hyperbolic-gradio
 perplexity-gradio
+mistral-gradio

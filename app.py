@@ -6,6 +6,7 @@ import sambanova_gradio
 import xai_gradio
 import hyperbolic_gradio
 import perplexity_gradio
+import mistral_gradio
 
 
 
@@ -246,6 +247,59 @@ with gr.Blocks(fill_height=True) as demo:
         </div>    
                     
         **Note:** This model is supported by Hyperbolic. You need to use a Hyperbolic API key from [Hyperbolic](https://app.hyperbolic.xyz/).
+        """)
+    with gr.Tab("Mistral"):
+        with gr.Row():
+            mistral_model = gr.Dropdown(
+                choices=[
+                    # Premier Models
+                    'mistral-large-latest',          # Top-tier reasoning model (128k)
+                    'pixtral-large-latest',          # Frontier-class multimodal model (128k)
+                    'ministral-3b-latest',           # Best edge model (128k)
+                    'ministral-8b-latest',           # High performance edge model (128k)
+                    'mistral-small-latest',          # Enterprise-grade small model (32k)
+                    'codestral-latest',              # Code-specialized model (32k)
+                    'mistral-embed',                 # Semantic text representation (8k)
+                    'mistral-moderation-latest',     # Content moderation service (8k)
+                    # Free Models
+                    'pixtral-12b-2409',             # Free 12B multimodal model (128k)
+                    'open-mistral-nemo',             # Multilingual model (128k)
+                    'open-codestral-mamba'           # Mamba-based coding model (256k)
+                ],
+                value='mistral-large-latest',    # Default to most capable model
+                label="Select Mistral Model",
+                interactive=True
+            )
+            
+        mistral_interface = gr.load(
+            name=mistral_model.value,
+            src=mistral_gradio.registry,
+            accept_token=True,
+            fill_height=True
+        )
+        
+        def update_mistral_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=mistral_gradio.registry,
+                accept_token=True,
+                fill_height=True
+            )
+        
+        mistral_model.change(
+            fn=update_mistral_model,
+            inputs=[mistral_model],
+            outputs=[mistral_interface]
+        )
+        
+        gr.Markdown("""
+        **Note:** You need a Mistral API key to use these models. Get one at [Mistral AI Platform](https://console.mistral.ai/).
+        
+        Models are grouped into two categories:
+        - **Premier Models**: Require a paid API key
+        - **Free Models**: Available with free API keys
+        
+        Each model has different context window sizes (from 8k to 256k tokens) and specialized capabilities.
         """)
 
 demo.launch(ssr_mode=False)
