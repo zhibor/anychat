@@ -219,6 +219,6 @@ with gr.Blocks(fill_height=True) as demo:
         """)
 
 
-demo.launch()
+demo.launch(ssr_mode=False)
 
 
