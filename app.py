@@ -282,12 +282,12 @@ with gr.Blocks(fill_height=True) as demo:
                 name=new_model,
                 src=mistral_gradio.registry,
                 fill_height=True
-            )
+            )._render()
         
         mistral_model.change(
             fn=update_mistral_model,
             inputs=[mistral_model],
-            outputs=[mistral_interface]
+            outputs=[mistral_interface],
         )
         
         gr.Markdown("""
