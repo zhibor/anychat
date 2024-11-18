@@ -229,7 +229,14 @@ with gr.Blocks(fill_height=True) as demo:
         
         For access to Online LLMs features, please fill out the [beta access form](https://perplexity.typeform.com/apiaccessform?typeform-source=docs.perplexity.ai).
         """)
-
+    with gr.Tab("DeepSeek-V2.5"):
+        gr.load(
+            name='deepseek-ai/DeepSeek-V2.5',
+            src=hyperbolic_gradio.registry,
+            accept_token=True,
+            fill_height=True
+        )
+        gr.Markdown("**Note:** You need to use a Hyperbolic API key from [Hyperbolic](https://app.hyperbolic.xyz/).")
 
 demo.launch(ssr_mode=False)
 
