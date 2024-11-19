@@ -302,10 +302,10 @@ with gr.Blocks(fill_height=True) as demo:
         with gr.Row():
             fireworks_model = gr.Dropdown(
                 choices=[
-                    'f1-preview',              # Latest F1 preview model
-                    'f1-mini-preview',         # Smaller, faster model
+                    'accounts/fireworks/agents/f1-preview',              # Latest F1 preview model
+                    'accounts/fireworks/agents/f1-mini-preview',         # Smaller, faster model
                 ],
-                value='f1-preview',            # Default to preview model
+                value='accounts/fireworks/agents/f1-preview',            # Default to preview model
                 label="Select Fireworks Model",
                 interactive=True
             )
