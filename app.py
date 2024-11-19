@@ -10,6 +10,7 @@ import mistral_gradio
 import fireworks_gradio
 import cerebras_gradio
 import groq_gradio
+import together_gradio
 
 
 
@@ -425,6 +426,82 @@ with gr.Blocks(fill_height=True) as demo:
                 accept_token=True,  # Added token acceptance
                 fill_height=True
             )
+    with gr.Tab("Together"):
+        with gr.Row():
+            together_model = gr.Dropdown(
+                choices=[
+                    # Vision Models
+                    'meta-llama/Llama-Vision-Free',                     # 131k context (Free)
+                    'meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo',  # 131k context
+                    'meta-llama/Llama-3.2-90B-Vision-Instruct-Turbo',  # 131k context
+                    # Meta Llama 3.x Models
+                    'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',      # 131k context
+                    'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',     # 131k context
+                    'meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo',    # 130k context
+                    'meta-llama/Meta-Llama-3-8B-Instruct-Turbo',        # 8k context
+                    'meta-llama/Meta-Llama-3-70B-Instruct-Turbo',       # 8k context
+                    'meta-llama/Llama-3.2-3B-Instruct-Turbo',          # 131k context
+                    'meta-llama/Meta-Llama-3-8B-Instruct-Lite',         # 8k context, INT4
+                    'meta-llama/Meta-Llama-3-70B-Instruct-Lite',        # 8k context, INT4
+                    'meta-llama/Llama-3-8b-chat-hf',                    # 8k context
+                    'meta-llama/Llama-3-70b-chat-hf',                   # 8k context
+                    # Other Large Models
+                    'nvidia/Llama-3.1-Nemotron-70B-Instruct-HF',        # 32k context
+                    'Qwen/Qwen2.5-Coder-32B-Instruct',                  # 32k context
+                    'microsoft/WizardLM-2-8x22B',                       # 65k context
+                    'google/gemma-2-27b-it',                            # 8k context
+                    'google/gemma-2-9b-it',                             # 8k context
+                    'databricks/dbrx-instruct',                         # 32k context
+                    # Mixtral Models
+                    'mistralai/Mixtral-8x7B-Instruct-v0.1',            # 32k context
+                    'mistralai/Mixtral-8x22B-Instruct-v0.1',           # 65k context
+                    # Qwen Models
+                    'Qwen/Qwen2.5-7B-Instruct-Turbo',                  # 32k context
+                    'Qwen/Qwen2.5-72B-Instruct-Turbo',                 # 32k context
+                    'Qwen/Qwen2-72B-Instruct',                         # 32k context
+                    # Other Models
+                    'deepseek-ai/deepseek-llm-67b-chat',               # 4k context
+                    'google/gemma-2b-it',                              # 8k context
+                    'Gryphe/MythoMax-L2-13b',                          # 4k context
+                    'meta-llama/Llama-2-13b-chat-hf',                  # 4k context
+                    'mistralai/Mistral-7B-Instruct-v0.1',              # 8k context
+                    'mistralai/Mistral-7B-Instruct-v0.2',              # 32k context
+                    'mistralai/Mistral-7B-Instruct-v0.3',              # 32k context
+                    'NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO',     # 32k context
+                    'togethercomputer/StripedHyena-Nous-7B',           # 32k context
+                    'upstage/SOLAR-10.7B-Instruct-v1.0'                # 4k context
+                ],
+                value='meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo',  # Default to recommended vision model
+                label="Select Together Model",
+                interactive=True
+            )
+            
+        together_interface = gr.load(
+            name=together_model.value,
+            src=together_gradio.registry,
+            accept_token=True,
+            multimodal=True,  # Added multimodal support
+            fill_height=True
+        )
+        
+        def update_together_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=together_gradio.registry,
+                accept_token=True,
+                multimodal=True,  # Added multimodal support
+                fill_height=True
+            )
+        
+        together_model.change(
+            fn=update_together_model,
+            inputs=[together_model],
+            outputs=[together_interface]
+        )
+        
+        gr.Markdown("""
+        **Note:** You need a Together AI API key to use these models. Get one at [Together AI](https://www.together.ai/).
+        """)
 
 demo.launch(ssr_mode=False)
 
