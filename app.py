@@ -172,12 +172,37 @@ with gr.Blocks(fill_height=True) as demo:
             accept_token=True,
             fill_height=True
         )
-    with gr.Tab("Qwen2.5 72B"):
-        gr.load(
-            name='Qwen/Qwen2.5-72B-Instruct',
+    with gr.Tab("Qwen"):
+        with gr.Row():
+            qwen_model = gr.Dropdown(
+                choices=[
+                    'Qwen/Qwen2.5-72B-Instruct',
+                    'Qwen/Qwen2.5-Coder-32B-Instruct'
+                ],
+                value='Qwen/Qwen2.5-72B-Instruct',
+                label="Select Qwen Model",
+                interactive=True
+            )
+            
+        qwen_interface = gr.load(
+            name=qwen_model.value,
             src=hyperbolic_gradio.registry,
             fill_height=True
         )
+        
+        def update_qwen_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=hyperbolic_gradio.registry,
+                fill_height=True
+            )
+        
+        qwen_model.change(
+            fn=update_qwen_model,
+            inputs=[qwen_model],
+            outputs=[qwen_interface]
+        )
+        
         gr.Markdown("""
         <div>
             <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
