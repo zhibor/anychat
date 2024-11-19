@@ -7,6 +7,7 @@ import xai_gradio
 import hyperbolic_gradio
 import perplexity_gradio
 import mistral_gradio
+import fireworks_gradio
 
 
 
@@ -296,6 +297,40 @@ with gr.Blocks(fill_height=True) as demo:
         - **Free Models**: Available with free API keys
         
         Each model has different context window sizes (from 8k to 256k tokens) and specialized capabilities.
+        """)
+    with gr.Tab("Fireworks"):
+        with gr.Row():
+            fireworks_model = gr.Dropdown(
+                choices=[
+                    'f1-preview',              # Latest F1 preview model
+                    'f1-mini-preview',         # Smaller, faster model
+                ],
+                value='f1-preview',            # Default to preview model
+                label="Select Fireworks Model",
+                interactive=True
+            )
+            
+        fireworks_interface = gr.load(
+            name=fireworks_model.value,
+            src=fireworks_gradio.registry,
+            fill_height=True
+        )
+        
+        def update_fireworks_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=fireworks_gradio.registry,
+                fill_height=True
+            )
+        
+        fireworks_model.change(
+            fn=update_fireworks_model,
+            inputs=[fireworks_model],
+            outputs=[fireworks_interface]
+        )
+        
+        gr.Markdown("""
+        **Note:** You need a Fireworks AI API key to use these models. Get one at [Fireworks AI](https://app.fireworks.ai/).
         """)
 
 demo.launch(ssr_mode=False)
