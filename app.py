@@ -191,7 +191,6 @@ with gr.Blocks(fill_height=True) as demo:
         groq_interface = gr.load(
             name=groq_model.value,
             src=groq_gradio.registry,
-            accept_token=True,
             fill_height=True
         )
         
@@ -199,7 +198,6 @@ with gr.Blocks(fill_height=True) as demo:
             return gr.load(
                 name=new_model,
                 src=groq_gradio.registry,
-                accept_token=True,
                 fill_height=True
             )
         
