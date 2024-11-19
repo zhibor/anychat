@@ -12,7 +12,7 @@ import fireworks_gradio
 
 
 with gr.Blocks(fill_height=True) as demo:
-    with gr.Tab("Meta Llama"):
+    with gr.Tab("Sambanova"):
         with gr.Row():
             llama_model = gr.Dropdown(
                 choices=[
@@ -33,7 +33,8 @@ with gr.Blocks(fill_height=True) as demo:
             name=llama_model.value,
             src=sambanova_gradio.registry,
             multimodal=True,
-            fill_height=True
+            fill_height=True,
+            chatbot=gr.Chatbot(height=600)
         )
         
         def update_llama_model(new_model):
@@ -41,7 +42,8 @@ with gr.Blocks(fill_height=True) as demo:
                 name=new_model,
                 src=sambanova_gradio.registry,
                 multimodal=True,
-                fill_height=True
+                fill_height=True,
+                chatbot=gr.Chatbot(height=600)
             )
         
         llama_model.change(
@@ -68,14 +70,16 @@ with gr.Blocks(fill_height=True) as demo:
         gemini_interface = gr.load(
             name=gemini_model.value,
             src=gemini_gradio.registry,
-            fill_height=True
+            fill_height=True,
+            chatbot=gr.Chatbot(height=600)
         )
         
         def update_gemini_model(new_model):
             return gr.load(
                 name=new_model,
                 src=gemini_gradio.registry,
-                fill_height=True
+                fill_height=True,
+                chatbot=gr.Chatbot(height=600)
             )
         
         gemini_model.change(
@@ -114,7 +118,8 @@ with gr.Blocks(fill_height=True) as demo:
             name=model_choice.value,
             src=openai_gradio.registry,
             accept_token=True,
-            fill_height=True
+            fill_height=True,
+            chatbot=gr.Chatbot(height=600)
         )
         
         def update_model(new_model):
@@ -122,7 +127,8 @@ with gr.Blocks(fill_height=True) as demo:
                 name=new_model,
                 src=openai_gradio.registry,
                 accept_token=True,
-                fill_height=True
+                fill_height=True,
+                chatbot=gr.Chatbot(height=600)
             )
         
         model_choice.change(
@@ -149,7 +155,8 @@ with gr.Blocks(fill_height=True) as demo:
             name=claude_model.value,
             src=anthropic_gradio.registry,
             accept_token=True,
-            fill_height=True
+            fill_height=True,
+            chatbot=gr.Chatbot(height=600)
         )
         
         def update_claude_model(new_model):
@@ -157,7 +164,8 @@ with gr.Blocks(fill_height=True) as demo:
                 name=new_model,
                 src=anthropic_gradio.registry,
                 accept_token=True,
-                fill_height=True
+                fill_height=True,
+                chatbot=gr.Chatbot(height=600)
             )
         
         claude_model.change(
@@ -170,7 +178,8 @@ with gr.Blocks(fill_height=True) as demo:
             name='grok-beta',
             src=xai_gradio.registry,
             accept_token=True,
-            fill_height=True
+            fill_height=True,
+            chatbot=gr.Chatbot(height=600)
         )
     with gr.Tab("Qwen"):
         with gr.Row():
@@ -187,14 +196,16 @@ with gr.Blocks(fill_height=True) as demo:
         qwen_interface = gr.load(
             name=qwen_model.value,
             src=hyperbolic_gradio.registry,
-            fill_height=True
+            fill_height=True,
+            chatbot=gr.Chatbot(height=600)
         )
         
         def update_qwen_model(new_model):
             return gr.load(
                 name=new_model,
                 src=hyperbolic_gradio.registry,
-                fill_height=True
+                fill_height=True,
+                chatbot=gr.Chatbot(height=600)
             )
         
         qwen_model.change(
@@ -234,7 +245,8 @@ with gr.Blocks(fill_height=True) as demo:
             name=perplexity_model.value,
             src=perplexity_gradio.registry,
             accept_token=True,
-            fill_height=True
+            fill_height=True,
+            chatbot=gr.Chatbot(height=600)
         )
         
         def update_perplexity_model(new_model):
@@ -242,7 +254,8 @@ with gr.Blocks(fill_height=True) as demo:
                 name=new_model,
                 src=perplexity_gradio.registry,
                 accept_token=True,
-                fill_height=True
+                fill_height=True,
+                chatbot=gr.Chatbot(height=600)
             )
         
         perplexity_model.change(
@@ -263,7 +276,8 @@ with gr.Blocks(fill_height=True) as demo:
         gr.load(
             name='deepseek-ai/DeepSeek-V2.5',
             src=hyperbolic_gradio.registry,
-            fill_height=True
+            fill_height=True,
+            chatbot=gr.Chatbot(height=600)
         )
         gr.Markdown("""
         <div>
@@ -298,14 +312,16 @@ with gr.Blocks(fill_height=True) as demo:
         mistral_interface = gr.load(
             name=mistral_model.value,
             src=mistral_gradio.registry,
-            fill_height=True
+            fill_height=True,
+            chatbot=gr.Chatbot(height=600)
         )
         
         def update_mistral_model(new_model):
             return gr.load(
                 name=new_model,
                 src=mistral_gradio.registry,
-                fill_height=True
+                fill_height=True,
+                chatbot=gr.Chatbot(height=600)
             )
         
         mistral_model.change(
@@ -338,14 +354,16 @@ with gr.Blocks(fill_height=True) as demo:
         fireworks_interface = gr.load(
             name=fireworks_model.value,
             src=fireworks_gradio.registry,
-            fill_height=True
+            fill_height=True,
+            chatbot=gr.Chatbot(height=600)
         )
         
         def update_fireworks_model(new_model):
             return gr.load(
                 name=new_model,
                 src=fireworks_gradio.registry,
-                fill_height=True
+                fill_height=True,
+                chatbot=gr.Chatbot(height=600)
             )
         
         fireworks_model.change(
