@@ -479,8 +479,7 @@ with gr.Blocks(fill_height=True) as demo:
         together_interface = gr.load(
             name=together_model.value,
             src=together_gradio.registry,
-            accept_token=True,
-            multimodal=True,  # Added multimodal support
+            multimodal=True,
             fill_height=True
         )
         
@@ -488,8 +487,7 @@ with gr.Blocks(fill_height=True) as demo:
             return gr.load(
                 name=new_model,
                 src=together_gradio.registry,
-                accept_token=True,
-                multimodal=True,  # Added multimodal support
+                multimodal=True,
                 fill_height=True
             )
         
