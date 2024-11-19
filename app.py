@@ -9,6 +9,7 @@ import perplexity_gradio
 import mistral_gradio
 import fireworks_gradio
 import cerebras_gradio
+import groq_gradio
 
 
 
@@ -173,6 +174,44 @@ with gr.Blocks(fill_height=True) as demo:
             accept_token=True,
             fill_height=True
         )
+    with gr.Tab("Groq"):
+        with gr.Row():
+            groq_model = gr.Dropdown(
+                choices=[
+                    'llama-3.2-3b-preview',
+                    'llama-3.2-11b-preview',
+                    'llama-3.2-90b-preview',
+                    'mixtral-8x7b-preview'
+                ],
+                value='llama-3.2-90b-preview',  # Default to largest model
+                label="Select Groq Model",
+                interactive=True
+            )
+            
+        groq_interface = gr.load(
+            name=groq_model.value,
+            src=groq_gradio.registry,
+            accept_token=True,
+            fill_height=True
+        )
+        
+        def update_groq_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=groq_gradio.registry,
+                accept_token=True,
+                fill_height=True
+            )
+        
+        groq_model.change(
+            fn=update_groq_model,
+            inputs=[groq_model],
+            outputs=[groq_interface]
+        )
+        
+        gr.Markdown("""
+        **Note:** You need a Groq API key to use these models. Get one at [Groq Cloud](https://console.groq.com/).
+        """)
     with gr.Tab("Qwen"):
         with gr.Row():
             qwen_model = gr.Dropdown(
