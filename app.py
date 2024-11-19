@@ -178,12 +178,15 @@ with gr.Blocks(fill_height=True) as demo:
         with gr.Row():
             groq_model = gr.Dropdown(
                 choices=[
+                    'llama3-groq-8b-8192-tool-use-preview',
+                    'llama3-groq-70b-8192-tool-use-preview',
+                    'llama-3.2-1b-preview',
                     'llama-3.2-3b-preview',
-                    'llama-3.2-11b-preview',
-                    'llama-3.2-90b-preview',
-                    'mixtral-8x7b-preview'
+                    'llama-3.2-11b-text-preview',
+                    'llama-3.2-90b-text-preview',
+                    'mixtral-8x7b-32768'
                 ],
-                value='llama-3.2-90b-preview',  # Default to largest model
+                value='llama3-groq-70b-8192-tool-use-preview',  # Default to Groq's optimized model
                 label="Select Groq Model",
                 interactive=True
             )
