@@ -12,6 +12,45 @@ import fireworks_gradio
 
 
 with gr.Blocks(fill_height=True) as demo:
+    with gr.Tab("Meta Llama"):
+        with gr.Row():
+            llama_model = gr.Dropdown(
+                choices=[
+                    'Meta-Llama-3.2-1B-Instruct',   # Llama 3.2 1B
+                    'Meta-Llama-3.2-3B-Instruct',   # Llama 3.2 3B
+                    'Llama-3.2-11B-Vision-Instruct',  # Llama 3.2 11B
+                    'Llama-3.2-90B-Vision-Instruct',  # Llama 3.2 90B
+                    'Meta-Llama-3.1-8B-Instruct',    # Llama 3.1 8B
+                    'Meta-Llama-3.1-70B-Instruct',   # Llama 3.1 70B
+                    'Meta-Llama-3.1-405B-Instruct'   # Llama 3.1 405B
+                ],
+                value='Llama-3.2-90B-Vision-Instruct',  # Default to the most advanced model
+                label="Select Llama Model",
+                interactive=True
+            )
+        
+        llama_interface = gr.load(
+            name=llama_model.value,
+            src=sambanova_gradio.registry,
+            multimodal=True,
+            fill_height=True
+        )
+        
+        def update_llama_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=sambanova_gradio.registry,
+                multimodal=True,
+                fill_height=True
+            )
+        
+        llama_model.change(
+            fn=update_llama_model,
+            inputs=[llama_model],
+            outputs=[llama_interface]
+        )
+        
+        gr.Markdown("**Note:** You need to use a SambaNova API key from [SambaNova Cloud](https://cloud.sambanova.ai/).")
     with gr.Tab("Gemini"):
         with gr.Row():
             gemini_model = gr.Dropdown(
@@ -126,45 +165,6 @@ with gr.Blocks(fill_height=True) as demo:
             inputs=[claude_model],
             outputs=[claude_interface]
         )
-    with gr.Tab("Meta Llama"):
-        with gr.Row():
-            llama_model = gr.Dropdown(
-                choices=[
-                    'Meta-Llama-3.2-1B-Instruct',   # Llama 3.2 1B
-                    'Meta-Llama-3.2-3B-Instruct',   # Llama 3.2 3B
-                    'Llama-3.2-11B-Vision-Instruct',  # Llama 3.2 11B
-                    'Llama-3.2-90B-Vision-Instruct',  # Llama 3.2 90B
-                    'Meta-Llama-3.1-8B-Instruct',    # Llama 3.1 8B
-                    'Meta-Llama-3.1-70B-Instruct',   # Llama 3.1 70B
-                    'Meta-Llama-3.1-405B-Instruct'   # Llama 3.1 405B
-                ],
-                value='Llama-3.2-90B-Vision-Instruct',  # Default to the most advanced model
-                label="Select Llama Model",
-                interactive=True
-            )
-        
-        llama_interface = gr.load(
-            name=llama_model.value,
-            src=sambanova_gradio.registry,
-            multimodal=True,
-            fill_height=True
-        )
-        
-        def update_llama_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=sambanova_gradio.registry,
-                multimodal=True,
-                fill_height=True
-            )
-        
-        llama_model.change(
-            fn=update_llama_model,
-            inputs=[llama_model],
-            outputs=[llama_interface]
-        )
-        
-        gr.Markdown("**Note:** You need to use a SambaNova API key from [SambaNova Cloud](https://cloud.sambanova.ai/).")
     with gr.Tab("Grok"):
         gr.load(
             name='grok-beta',
