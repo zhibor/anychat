@@ -7,3 +7,4 @@ hyperbolic-gradio
 perplexity-gradio
 mistral-gradio
 git+https://github.com/AK391/fireworks-ai-gradio.git
+git+https://github.com/gradio-app/cerebras_gradio.git

@@ -8,6 +8,7 @@ import hyperbolic_gradio
 import perplexity_gradio
 import mistral_gradio
 import fireworks_gradio
+import cerebras_gradio
 
 
 
@@ -357,6 +358,33 @@ with gr.Blocks(fill_height=True) as demo:
         gr.Markdown("""
         **Note:** You need a Fireworks AI API key to use these models. Get one at [Fireworks AI](https://app.fireworks.ai/).
         """)
+    with gr.Tab("Cerebras"):
+        with gr.Row():
+            cerebras_model = gr.Dropdown(
+                choices=[
+                    'llama3.1-8b',
+                    'llama3.1-70b',
+                    'llama3.1-405b'
+                ],
+                value='llama3.1-70b',  # Default to mid-size model
+                label="Select Cerebras Model",
+                interactive=True
+            )
+            
+        cerebras_interface = gr.load(
+            name=cerebras_model.value,
+            src=cerebras_gradio.registry,
+            accept_token=True,  # Added token acceptance
+            fill_height=True
+        )
+        
+        def update_cerebras_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=cerebras_gradio.registry,
+                accept_token=True,  # Added token acceptance
+                fill_height=True
+            )
 
 demo.launch(ssr_mode=False)
 
