@@ -41,12 +41,13 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_llama_model(new_model):
-            return gr.load(
+            llama_interface.load(
                 name=new_model,
                 src=sambanova_gradio.registry,
                 multimodal=True,
                 fill_height=True
             )
+            return llama_interface
         
         llama_model.change(
             fn=update_llama_model,
@@ -76,11 +77,12 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_gemini_model(new_model):
-            return gr.load(
+            gemini_interface.load(
                 name=new_model,
                 src=gemini_gradio.registry,
                 fill_height=True
             )
+            return gemini_interface
         
         gemini_model.change(
             fn=update_gemini_model,
@@ -122,12 +124,13 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_model(new_model):
-            return gr.load(
+            chatgpt_interface.load(
                 name=new_model,
                 src=openai_gradio.registry,
                 accept_token=True,
                 fill_height=True
             )
+            return chatgpt_interface
         
         model_choice.change(
             fn=update_model,
@@ -157,12 +160,13 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_claude_model(new_model):
-            return gr.load(
+            claude_interface.load(
                 name=new_model,
                 src=anthropic_gradio.registry,
                 accept_token=True,
                 fill_height=True
             )
+            return claude_interface
         
         claude_model.change(
             fn=update_claude_model,
@@ -188,11 +192,12 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_grok_model(new_model):
-            return gr.load(
+            grok_interface.load(
                 name=new_model,
                 src=xai_gradio.registry,
                 fill_height=True
             )
+            return grok_interface
         
         grok_model.change(
             fn=update_grok_model,
@@ -225,11 +230,12 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_groq_model(new_model):
-            return gr.load(
+            groq_interface.load(
                 name=new_model,
                 src=groq_gradio.registry,
                 fill_height=True
             )
+            return groq_interface
         
         groq_model.change(
             fn=update_groq_model,
@@ -271,11 +277,12 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_hyperbolic_model(new_model):
-            return gr.load(
+            hyperbolic_interface.load(
                 name=new_model,
                 src=hyperbolic_gradio.registry,
                 fill_height=True
             )
+            return hyperbolic_interface
         
         hyperbolic_model.change(
             fn=update_hyperbolic_model,
@@ -309,11 +316,12 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_qwen_model(new_model):
-            return gr.load(
+            qwen_interface.load(
                 name=new_model,
                 src=hyperbolic_gradio.registry,
                 fill_height=True
             )
+            return qwen_interface
         
         qwen_model.change(
             fn=update_qwen_model,
@@ -356,12 +364,13 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_perplexity_model(new_model):
-            return gr.load(
+            perplexity_interface.load(
                 name=new_model,
                 src=perplexity_gradio.registry,
                 accept_token=True,
                 fill_height=True
             )
+            return perplexity_interface
         
         perplexity_model.change(
             fn=update_perplexity_model,
@@ -420,11 +429,12 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_mistral_model(new_model):
-            return gr.load(
+            mistral_interface.load(
                 name=new_model,
                 src=mistral_gradio.registry,
                 fill_height=True
             )
+            return mistral_interface
         
         mistral_model.change(
             fn=update_mistral_model,
@@ -460,11 +470,12 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_fireworks_model(new_model):
-            return gr.load(
+            fireworks_interface.load(
                 name=new_model,
                 src=fireworks_gradio.registry,
                 fill_height=True
             )
+            return fireworks_interface
         
         fireworks_model.change(
             fn=update_fireworks_model,
@@ -496,12 +507,19 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_cerebras_model(new_model):
-            return gr.load(
+            cerebras_interface.load(
                 name=new_model,
                 src=cerebras_gradio.registry,
                 accept_token=True,  # Added token acceptance
                 fill_height=True
             )
+            return cerebras_interface
+        
+        cerebras_model.change(
+            fn=update_cerebras_model,
+            inputs=[cerebras_model],
+            outputs=[cerebras_interface]
+        )
     with gr.Tab("Together"):
         with gr.Row():
             together_model = gr.Dropdown(
@@ -560,12 +578,13 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_together_model(new_model):
-            return gr.load(
+            together_interface.load(
                 name=new_model,
                 src=together_gradio.registry,
                 multimodal=True,
                 fill_height=True
             )
+            return together_interface
         
         together_model.change(
             fn=update_together_model,
@@ -636,12 +655,13 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         def update_nvidia_model(new_model):
-            return gr.load(
+            nvidia_interface.load(
                 name=new_model,
                 src=nvidia_gradio.registry,
                 accept_token=True,
                 fill_height=True
             )
+            return nvidia_interface
         
         nvidia_model.change(
             fn=update_nvidia_model,
