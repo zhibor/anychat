@@ -11,6 +11,7 @@ import fireworks_gradio
 import cerebras_gradio
 import groq_gradio
 import together_gradio
+import nvidia_gradio
 
 
 
@@ -522,6 +523,89 @@ with gr.Blocks(fill_height=True) as demo:
         
         gr.Markdown("""
         **Note:** You need a Together AI API key to use these models. Get one at [Together AI](https://www.together.ai/).
+        """)
+    with gr.Tab("NVIDIA"):
+        with gr.Row():
+            nvidia_model = gr.Dropdown(
+                choices=[
+                    # NVIDIA Models
+                    'nvidia/llama3-chatqa-1.5-70b',
+                    'nvidia/llama3-chatqa-1.5-8b',
+                    'nvidia-nemotron-4-340b-instruct',
+                    # Meta Models
+                    'meta/codellama-70b',
+                    'meta/llama2-70b',
+                    'meta/llama3-8b',
+                    'meta/llama3-70b',
+                    # Mistral Models
+                    'mistralai/codestral-22b-instruct-v0.1',
+                    'mistralai/mathstral-7b-v0.1',
+                    'mistralai/mistral-large-2-instruct',
+                    'mistralai/mistral-7b-instruct',
+                    'mistralai/mistral-7b-instruct-v0.3',
+                    'mistralai/mixtral-8x7b-instruct',
+                    'mistralai/mixtral-8x22b-instruct',
+                    'mistralai/mistral-large',
+                    # Google Models
+                    'google/gemma-2b',
+                    'google/gemma-7b',
+                    'google/gemma-2-2b-it',
+                    'google/gemma-2-9b-it',
+                    'google/gemma-2-27b-it',
+                    'google/codegemma-1.1-7b',
+                    'google/codegemma-7b',
+                    'google/recurrentgemma-2b',
+                    'google/shieldgemma-9b',
+                    # Microsoft Phi-3 Models
+                    'microsoft/phi-3-medium-128k-instruct',
+                    'microsoft/phi-3-medium-4k-instruct',
+                    'microsoft/phi-3-mini-128k-instruct',
+                    'microsoft/phi-3-mini-4k-instruct',
+                    'microsoft/phi-3-small-128k-instruct',
+                    'microsoft/phi-3-small-8k-instruct',
+                    # Other Models
+                    'qwen/qwen2-7b-instruct',
+                    'databricks/dbrx-instruct',
+                    'deepseek-ai/deepseek-coder-6.7b-instruct',
+                    'upstage/solar-10.7b-instruct',
+                    'snowflake/arctic'
+                ],
+                value='nvidia/llama3-chatqa-1.5-70b',  # Default to NVIDIA's flagship model
+                label="Select NVIDIA Model",
+                interactive=True
+            )
+            
+        nvidia_interface = gr.load(
+            name=nvidia_model.value,
+            src=nvidia_gradio.registry,
+            accept_token=True,  # Added token acceptance
+            fill_height=True
+        )
+        
+        def update_nvidia_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=nvidia_gradio.registry,
+                accept_token=True,  # Added token acceptance
+                fill_height=True
+            )
+        
+        nvidia_model.change(
+            fn=update_nvidia_model,
+            inputs=[nvidia_model],
+            outputs=[nvidia_interface]
+        )
+        
+        gr.Markdown("""
+        **Note:** You need an NVIDIA AI Foundation API key to use these models. Get one at [NVIDIA AI Foundation](https://www.nvidia.com/en-us/ai-data-science/foundation-models/).
+        
+        Models are organized by provider:
+        - **NVIDIA**: Native models including Llama3-ChatQA and Nemotron
+        - **Meta**: Llama family models
+        - **Mistral**: Various Mistral and Mixtral models
+        - **Google**: Gemma family models
+        - **Microsoft**: Phi-3 series
+        - And other providers including Qwen, Databricks, DeepSeek, etc.
         """)
 
 demo.launch(ssr_mode=False)
