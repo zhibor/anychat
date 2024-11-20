@@ -12,6 +12,7 @@ import cerebras_gradio
 import groq_gradio
 import together_gradio
 import nvidia_gradio
+import dashscope_gradio
 
 
 
@@ -294,24 +295,33 @@ with gr.Blocks(fill_height=True) as demo:
         with gr.Row():
             qwen_model = gr.Dropdown(
                 choices=[
-                    'Qwen/Qwen2.5-72B-Instruct',
-                    'Qwen/Qwen2.5-Coder-32B-Instruct'
+                    # Proprietary Qwen Models
+                    'qwen-turbo-latest',
+                    'qwen-turbo',
+                    'qwen-plus',
+                    'qwen-max',
+                    # Open Source Qwen Models
+                    'qwen1.5-110b-chat',
+                    'qwen1.5-72b-chat',
+                    'qwen1.5-32b-chat',
+                    'qwen1.5-14b-chat',
+                    'qwen1.5-7b-chat'
                 ],
-                value='Qwen/Qwen2.5-72B-Instruct',
+                value='qwen-turbo-latest',  # Default to the latest turbo model
                 label="Select Qwen Model",
                 interactive=True
             )
             
         qwen_interface = gr.load(
             name=qwen_model.value,
-            src=hyperbolic_gradio.registry,
+            src=dashscope_gradio.registry,
             fill_height=True
         )
         
         def update_qwen_model(new_model):
             return gr.load(
                 name=new_model,
-                src=hyperbolic_gradio.registry,
+                src=dashscope_gradio.registry,
                 fill_height=True
             )
         
@@ -322,11 +332,16 @@ with gr.Blocks(fill_height=True) as demo:
         )
         
         gr.Markdown("""
-        <div>
-            <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
-        </div>    
-                    
-        **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
+        **Note:** You need a DashScope API key to use these models. Get one at [DashScope](https://dashscope.aliyun.com/).
+        
+        Models available in two categories:
+        - **Proprietary Models**:
+          - Qwen Turbo: Fast responses for general tasks
+          - Qwen Plus: Balanced performance and quality
+          - Qwen Max: Highest quality responses
+        - **Open Source Models**:
+          - Available in various sizes from 7B to 110B parameters
+          - Based on the Qwen 1.5 architecture
         """)
     with gr.Tab("Perplexity"):
         with gr.Row():
