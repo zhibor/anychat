@@ -209,7 +209,9 @@ with gr.Blocks(fill_height=True) as demo:
                     'llama-3.2-3b-preview',
                     'llama-3.2-11b-text-preview',
                     'llama-3.2-90b-text-preview',
-                    'mixtral-8x7b-32768'
+                    'mixtral-8x7b-32768',
+                    'gemma2-9b-it',
+                    'gemma-7b-it'
                 ],
                 value='llama3-groq-70b-8192-tool-use-preview',  # Default to Groq's optimized model
                 label="Select Groq Model",
