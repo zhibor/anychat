@@ -175,7 +175,7 @@ with gr.Blocks(fill_height=True) as demo:
                     'grok-beta',
                     'grok-vision-beta'
                 ],
-                value='grok-beta',
+                value='grok-vision-beta',
                 label="Select Grok Model",
                 interactive=True
             )
