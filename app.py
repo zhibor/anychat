@@ -169,11 +169,34 @@ with gr.Blocks(fill_height=True) as demo:
             outputs=[claude_interface]
         )
     with gr.Tab("Grok"):
-        gr.load(
-            name='grok-beta',
+        with gr.Row():
+            grok_model = gr.Dropdown(
+                choices=[
+                    'grok-beta',
+                    'grok-vision-beta'
+                ],
+                value='grok-beta',
+                label="Select Grok Model",
+                interactive=True
+            )
+            
+        grok_interface = gr.load(
+            name=grok_model.value,
             src=xai_gradio.registry,
-            accept_token=True,
             fill_height=True
+        )
+        
+        def update_grok_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=xai_gradio.registry,
+                fill_height=True
+            )
+        
+        grok_model.change(
+            fn=update_grok_model,
+            inputs=[grok_model],
+            outputs=[grok_interface]
         )
     with gr.Tab("Groq"):
         with gr.Row():
