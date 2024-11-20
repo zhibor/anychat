@@ -119,7 +119,6 @@ with gr.Blocks(fill_height=True) as demo:
         chatgpt_interface = gr.load(
             name=model_choice.value,
             src=openai_gradio.registry,
-            accept_token=True,
             fill_height=True
         )
         
@@ -127,7 +126,6 @@ with gr.Blocks(fill_height=True) as demo:
             return gr.load(
                 name=new_model,
                 src=openai_gradio.registry,
-                accept_token=True,
                 fill_height=True
             )
         
