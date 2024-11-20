@@ -583,6 +583,7 @@ with gr.Blocks(fill_height=True) as demo:
                     'nvidia/llama3-chatqa-1.5-8b',
                     'nvidia-nemotron-4-340b-instruct',
                     # Meta Models
+                    'meta/llama-3.1-70b-instruct',    # Added Llama 3.1 70B
                     'meta/codellama-70b',
                     'meta/llama2-70b',
                     'meta/llama3-8b',
@@ -620,7 +621,7 @@ with gr.Blocks(fill_height=True) as demo:
                     'upstage/solar-10.7b-instruct',
                     'snowflake/arctic'
                 ],
-                value='nvidia/llama3-chatqa-1.5-70b',  # Default to NVIDIA's flagship model
+                value='meta/llama-3.1-70b-instruct',  # Changed default to Llama 3.1 70B
                 label="Select NVIDIA Model",
                 interactive=True
             )
@@ -628,7 +629,7 @@ with gr.Blocks(fill_height=True) as demo:
         nvidia_interface = gr.load(
             name=nvidia_model.value,
             src=nvidia_gradio.registry,
-            accept_token=True,  # Added token acceptance
+            accept_token=True,
             fill_height=True
         )
         
@@ -636,7 +637,7 @@ with gr.Blocks(fill_height=True) as demo:
             return gr.load(
                 name=new_model,
                 src=nvidia_gradio.registry,
-                accept_token=True,  # Added token acceptance
+                accept_token=True,
                 fill_height=True
             )
         
