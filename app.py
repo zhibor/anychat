@@ -92,9 +92,10 @@ with gr.Blocks(fill_height=True) as demo:
         with gr.Row():
             model_choice = gr.Dropdown(
                 choices=[
-                    'gpt-4o',                     # Most advanced model
-                    'gpt-4o-2024-08-06',          # Latest snapshot
-                    'gpt-4o-2024-05-13',          # Original snapshot
+                    'gpt-4o-2024-11-20',              # Latest GPT-4o model
+                    'gpt-4o',                         # Previous most advanced model
+                    'gpt-4o-2024-08-06',              # Latest snapshot
+                    'gpt-4o-2024-05-13',              # Original snapshot
                     'chatgpt-4o-latest',          # Latest ChatGPT version
                     'gpt-4o-mini',                # Small model
                     'gpt-4o-mini-2024-07-18',     # Latest mini version
@@ -110,7 +111,7 @@ with gr.Blocks(fill_height=True) as demo:
                     'gpt-4',                      # Standard GPT-4 model
                     'gpt-4-0613'                  # Snapshot of GPT-4 from June 2023
                 ],
-                value='gpt-4o',                 # Default to the most advanced model
+                value='gpt-4o-2024-11-20',           # Updated default to latest model
                 label="Select Model",
                 interactive=True
             )
