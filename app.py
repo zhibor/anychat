@@ -237,6 +237,56 @@ with gr.Blocks(fill_height=True) as demo:
         gr.Markdown("""
         **Note:** You need a Groq API key to use these models. Get one at [Groq Cloud](https://console.groq.com/).
         """)
+    with gr.Tab("Hyperbolic"):
+        with gr.Row():
+            hyperbolic_model = gr.Dropdown(
+                choices=[
+                    # # Vision Models (TODO)
+                    # 'Qwen/Qwen2-VL-72B-Instruct',                       # 32K context
+                    # 'mistralai/Pixtral-12B-2409',                       # 32K context
+                    # 'Qwen/Qwen2-VL-7B-Instruct',                        # 32K context
+                    # Large Language Models
+                    'Qwen/Qwen2.5-Coder-32B-Instruct',                  # 131K context
+                    'meta-llama/Llama-3.2-3B-Instruct',                 # 131K context
+                    'meta-llama/Meta-Llama-3.1-8B-Instruct',            # 131k context
+                    'meta-llama/Meta-Llama-3.1-70B-Instruct',           # 32K context
+                    'meta-llama/Meta-Llama-3-70B-Instruct',             # 8K context
+                    'NousResearch/Hermes-3-Llama-3.1-70B',              # 12K context
+                    'Qwen/Qwen2.5-72B-Instruct',                        # 32K context
+                    'deepseek-ai/DeepSeek-V2.5',                        # 8K context
+                    'meta-llama/Meta-Llama-3.1-405B-Instruct',          # 8K context
+                ],
+                value='Qwen/Qwen2.5-Coder-32B-Instruct',
+                label="Select Hyperbolic Model",
+                interactive=True
+            )
+            
+        hyperbolic_interface = gr.load(
+            name=hyperbolic_model.value,
+            src=hyperbolic_gradio.registry,
+            fill_height=True
+        )
+        
+        def update_hyperbolic_model(new_model):
+            return gr.load(
+                name=new_model,
+                src=hyperbolic_gradio.registry,
+                fill_height=True
+            )
+        
+        hyperbolic_model.change(
+            fn=update_hyperbolic_model,
+            inputs=[hyperbolic_model],
+            outputs=[hyperbolic_interface]
+        )
+        
+        gr.Markdown("""
+        <div>
+            <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
+        </div>    
+                    
+        **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
+        """)
     with gr.Tab("Qwen"):
         with gr.Row():
             qwen_model = gr.Dropdown(
