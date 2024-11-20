@@ -199,6 +199,67 @@ with gr.Blocks(fill_height=True) as demo:
             inputs=[grok_model],
             outputs=[grok_interface]
         )
+    with gr.Tab("Hugging Face"):
+        with gr.Row():
+            hf_model = gr.Dropdown(
+                choices=[
+                    # Latest Large Models
+                    'Qwen/Qwen2.5-Coder-32B-Instruct',
+                    'Qwen/Qwen2.5-72B-Instruct',
+                    'meta-llama/Llama-3.1-70B-Instruct',
+                    'mistralai/Mixtral-8x7B-Instruct-v0.1',
+                    # Mid-size Models
+                    'meta-llama/Llama-3.1-8B-Instruct',
+                    'google/gemma-2-9b-it',
+                    'mistralai/Mistral-7B-v0.1',
+                    'meta-llama/Llama-2-7b-chat-hf',
+                    # Smaller Models
+                    'meta-llama/Llama-3.2-3B-Instruct',
+                    'meta-llama/Llama-3.2-1B-Instruct',
+                    'Qwen/Qwen2.5-1.5B-Instruct',
+                    'microsoft/Phi-3.5-mini-instruct',
+                    'HuggingFaceTB/SmolLM2-1.7B-Instruct',
+                    'google/gemma-2-2b-it',
+                    # Base Models
+                    'meta-llama/Llama-3.2-3B',
+                    'meta-llama/Llama-3.2-1B',
+                    'openai-community/gpt2'
+                ],
+                value='HuggingFaceTB/SmolLM2-1.7B-Instruct',  # Default to a powerful model
+                label="Select Hugging Face Model",
+                interactive=True
+            )
+            
+        hf_interface = gr.load(
+            name=hf_model.value,
+            src="models",  # Use direct model loading from HF
+            fill_height=True
+        )
+        
+        def update_hf_model(new_model):
+            return gr.load(
+                name=new_model,
+                src="models",
+                fill_height=True
+            )
+        
+        hf_model.change(
+            fn=update_hf_model,
+            inputs=[hf_model],
+            outputs=[hf_interface]
+        )
+        
+        gr.Markdown("""
+        **Note:** These models are loaded directly from Hugging Face Hub. Some models may require authentication.
+        
+        Models are organized by size:
+        - **Large Models**: 32B-72B parameters
+        - **Mid-size Models**: 7B-9B parameters
+        - **Smaller Models**: 1B-3B parameters
+        - **Base Models**: Original architectures
+        
+        Visit [Hugging Face](https://huggingface.co/) to learn more about available models.
+        """)
     with gr.Tab("Groq"):
         with gr.Row():
             groq_model = gr.Dropdown(
@@ -679,67 +740,6 @@ with gr.Blocks(fill_height=True) as demo:
         - **Google**: Gemma family models
         - **Microsoft**: Phi-3 series
         - And other providers including Qwen, Databricks, DeepSeek, etc.
-        """)
-    with gr.Tab("Hugging Face"):
-        with gr.Row():
-            hf_model = gr.Dropdown(
-                choices=[
-                    # Latest Large Models
-                    'Qwen/Qwen2.5-Coder-32B-Instruct',
-                    'Qwen/Qwen2.5-72B-Instruct',
-                    'meta-llama/Llama-3.1-70B-Instruct',
-                    'mistralai/Mixtral-8x7B-Instruct-v0.1',
-                    # Mid-size Models
-                    'meta-llama/Llama-3.1-8B-Instruct',
-                    'google/gemma-2-9b-it',
-                    'mistralai/Mistral-7B-v0.1',
-                    'meta-llama/Llama-2-7b-chat-hf',
-                    # Smaller Models
-                    'meta-llama/Llama-3.2-3B-Instruct',
-                    'meta-llama/Llama-3.2-1B-Instruct',
-                    'Qwen/Qwen2.5-1.5B-Instruct',
-                    'microsoft/Phi-3.5-mini-instruct',
-                    'HuggingFaceTB/SmolLM2-1.7B-Instruct',
-                    'google/gemma-2-2b-it',
-                    # Base Models
-                    'meta-llama/Llama-3.2-3B',
-                    'meta-llama/Llama-3.2-1B',
-                    'openai-community/gpt2'
-                ],
-                value='HuggingFaceTB/SmolLM2-1.7B-Instruct',  # Default to a powerful model
-                label="Select Hugging Face Model",
-                interactive=True
-            )
-            
-        hf_interface = gr.load(
-            name=hf_model.value,
-            src="models",  # Use direct model loading from HF
-            fill_height=True
-        )
-        
-        def update_hf_model(new_model):
-            return gr.load(
-                name=new_model,
-                src="models",
-                fill_height=True
-            )
-        
-        hf_model.change(
-            fn=update_hf_model,
-            inputs=[hf_model],
-            outputs=[hf_interface]
-        )
-        
-        gr.Markdown("""
-        **Note:** These models are loaded directly from Hugging Face Hub. Some models may require authentication.
-        
-        Models are organized by size:
-        - **Large Models**: 32B-72B parameters
-        - **Mid-size Models**: 7B-9B parameters
-        - **Smaller Models**: 1B-3B parameters
-        - **Base Models**: Original architectures
-        
-        Visit [Hugging Face](https://huggingface.co/) to learn more about available models.
         """)
 
 demo.launch(ssr_mode=False)
