@@ -1,3 +1,5 @@
+import os
+
 import hyperbolic_gradio
 
 from utils import get_app
@@ -16,7 +18,7 @@ demo = get_app(
     ],
     default_model="Qwen/Qwen2.5-Coder-32B-Instruct",
     registry=hyperbolic_gradio.registry,
-    accept_token=False,
+    accept_token=not os.getenv("HYPERBOLIC_API_KEY"),
 )
 
 if __name__ == "__main__":

@@ -1,3 +1,5 @@
+import os
+
 import perplexity_gradio
 
 from utils import get_app
@@ -14,7 +16,7 @@ demo = get_app(
     ],
     default_model="llama-3.1-sonar-large-128k-online",
     registry=perplexity_gradio.registry,
-    accept_token=True,
+    accept_token=not os.getenv("PERPLEXITY_API_KEY"),
 )
 
 if __name__ == "__main__":

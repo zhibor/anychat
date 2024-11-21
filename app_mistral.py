@@ -1,3 +1,5 @@
+import os
+
 import mistral_gradio
 
 from utils import get_app
@@ -18,7 +20,7 @@ demo = get_app(
     ],
     default_model="pixtral-large-latest",
     registry=mistral_gradio.registry,
-    accept_token=False,
+    accept_token=not os.getenv("MISTRAL_API_KEY"),
 )
 
 if __name__ == "__main__":

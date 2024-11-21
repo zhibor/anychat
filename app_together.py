@@ -1,3 +1,5 @@
+import os
+
 import together_gradio
 
 from utils import get_app
@@ -41,7 +43,7 @@ demo = get_app(
     ],
     default_model="meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
     registry=together_gradio.registry,
-    accept_token=False,
+    accept_token=not os.getenv("TOGETHER_API_KEY"),
     multimodal=True,
 )
 

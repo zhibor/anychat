@@ -1,3 +1,5 @@
+import os
+
 import openai_gradio
 
 from utils import get_app
@@ -25,7 +27,7 @@ demo = get_app(
     ],
     default_model="gpt-4o-2024-11-20",
     registry=openai_gradio.registry,
-    accept_token=False,
+    accept_token=not os.getenv("OPENAI_API_KEY"),
 )
 
 if __name__ == "__main__":

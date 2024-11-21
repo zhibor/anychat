@@ -1,3 +1,5 @@
+import os
+
 import sambanova_gradio
 
 from utils import get_app
@@ -14,7 +16,7 @@ demo = get_app(
     ],
     default_model="Llama-3.2-90B-Vision-Instruct",
     registry=sambanova_gradio.registry,
-    accept_token=False,
+    accept_token=not os.getenv("SAMBANOVA_API_KEY"),
     multimodal=True,
 )
 

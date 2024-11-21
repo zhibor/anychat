@@ -1,3 +1,5 @@
+import os
+
 import cerebras_gradio
 
 from utils import get_app
@@ -10,7 +12,7 @@ demo = get_app(
     ],
     default_model="llama3.1-70b",
     registry=cerebras_gradio.registry,
-    accept_token=True,
+    accept_token=not os.getenv("CEREBRAS_API_KEY"),
 )
 
 if __name__ == "__main__":

@@ -1,3 +1,5 @@
+import os
+
 import xai_gradio
 
 from utils import get_app
@@ -9,7 +11,7 @@ demo = get_app(
     ],
     default_model="grok-vision-beta",
     registry=xai_gradio.registry,
-    accept_token=False,
+    accept_token=not os.getenv("XAI_API_KEY"),
 )
 
 if __name__ == "__main__":

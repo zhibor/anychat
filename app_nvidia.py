@@ -1,3 +1,5 @@
+import os
+
 import nvidia_gradio
 
 from utils import get_app
@@ -43,7 +45,7 @@ demo = get_app(
     ],
     default_model="meta/llama-3.1-70b-instruct",
     registry=nvidia_gradio.registry,
-    accept_token=True,
+    accept_token=not os.getenv("NVIDIA_API_KEY"),
 )
 
 if __name__ == "__main__":

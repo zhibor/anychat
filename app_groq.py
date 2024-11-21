@@ -1,3 +1,5 @@
+import os
+
 import groq_gradio
 
 from utils import get_app
@@ -16,7 +18,7 @@ demo = get_app(
     ],
     default_model="llama3-groq-70b-8192-tool-use-preview",
     registry=groq_gradio.registry,
-    accept_token=False,
+    accept_token=not os.getenv("GROQ_API_KEY"),
 )
 
 if __name__ == "__main__":

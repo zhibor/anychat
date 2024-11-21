@@ -1,3 +1,5 @@
+import os
+
 import anthropic_gradio
 
 from utils import get_app
@@ -12,7 +14,7 @@ demo = get_app(
     ],
     default_model="claude-3-5-sonnet-20241022",
     registry=anthropic_gradio.registry,
-    accept_token=True,
+    accept_token=not os.getenv("ANTHROPIC_API_KEY"),
 )
 
 if __name__ == "__main__":
