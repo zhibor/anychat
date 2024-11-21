@@ -52,4 +52,4 @@ with gr.Blocks(fill_height=True) as demo:
         demo_flux.render()
 
 if __name__ == "__main__":
-    demo.launch(ssr_mode=False)
+    demo.queue(api_open=False).launch(ssr_mode=False, show_api=False)
