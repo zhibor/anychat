@@ -10,8 +10,9 @@ demo = get_app(
         "gemini-1.5-flash-8b",
         "gemini-1.5-pro",
         "gemini-exp-1114",
+        "gemini-exp-1121"
     ],
-    default_model="gemini-1.5-pro",
+    default_model="gemini-exp-1121",
     src=gemini_gradio.registry,
     accept_token=not os.getenv("GEMINI_API_KEY"),
 )
