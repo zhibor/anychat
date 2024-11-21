@@ -1,0 +1,89 @@
+[project]
+name = "anychat"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic-gradio",
+    "cerebras-gradio",
+    "dashscope-gradio",
+    "fireworks-gradio",
+    "gemini-gradio>=0.0.1",
+    "gradio>=5.6.0",
+    "groq-gradio>=0.0.2",
+    "hyperbolic-gradio>=0.0.4",
+    "mistral-gradio>=0.0.2",
+    "nvidia-gradio",
+    "openai-gradio>=0.0.4",
+    "perplexity-gradio>=0.0.1",
+    "sambanova-gradio>=0.1.9",
+    "together-gradio>=0.0.1",
+    "xai-gradio>=0.0.2",
+]
+
+[tool.uv.sources]
+anthropic-gradio = { git = "https://github.com/AK391/anthropic-gradio.git" }
+fireworks-gradio = { git = "https://github.com/AK391/fireworks-ai-gradio.git" }
+cerebras-gradio = { git = "https://github.com/gradio-app/cerebras_gradio.git" }
+nvidia-gradio = { git = "https://github.com/AK391/nvidia-gradio.git" }
+dashscope-gradio = { git = "https://github.com/AK391/dashscope-gradio.git" }
+
+[tool.ruff]
+# Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
+select = ["E", "F"]
+ignore = ["E501"] # line too long (black is taking care of this)
+line-length = 119
+fixable = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "I",
+    "N",
+    "Q",
+    "S",
+    "T",
+    "W",
+    "ANN",
+    "ARG",
+    "BLE",
+    "COM",
+    "DJ",
+    "DTZ",
+    "EM",
+    "ERA",
+    "EXE",
+    "FBT",
+    "ICN",
+    "INP",
+    "ISC",
+    "NPY",
+    "PD",
+    "PGH",
+    "PIE",
+    "PL",
+    "PT",
+    "PTH",
+    "PYI",
+    "RET",
+    "RSE",
+    "RUF",
+    "SIM",
+    "SLF",
+    "TCH",
+    "TID",
+    "TRY",
+    "UP",
+    "YTT",
+]
+
+[tool.isort]
+profile = "black"
+line_length = 119
+
+[tool.black]
+line-length = 119

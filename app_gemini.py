@@ -1,0 +1,18 @@
+import gemini_gradio
+
+from utils import get_app
+
+demo = get_app(
+    models=[
+        "gemini-1.5-flash",
+        "gemini-1.5-flash-8b",
+        "gemini-1.5-pro",
+        "gemini-exp-1114",
+    ],
+    default_model="gemini-1.5-pro",
+    registry=gemini_gradio.registry,
+    accept_token=False,
+)
+
+if __name__ == "__main__":
+    demo.launch()
