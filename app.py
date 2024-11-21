@@ -25,9 +25,10 @@ def create_interface(model_name, src_registry, **kwargs):
 
 def update_model(new_model, container, src_registry, **kwargs):
     with container:
-        container.load_none()
+        container.visible = False  # Hide current content
         new_interface = create_interface(new_model, src_registry, **kwargs)
         new_interface.render()
+        container.visible = True  # Show new content
 
 with gr.Blocks(fill_height=True) as demo:
     # Meta Llama Tab
