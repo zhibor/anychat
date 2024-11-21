@@ -321,3 +321,4 @@ websockets==12.0
     # via gradio-client
 xai-gradio==0.0.2
     # via anychat (pyproject.toml)
+replicate-gradio @ git+https://github.com/AK391/replicate-gradio.git

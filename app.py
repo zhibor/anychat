@@ -14,6 +14,7 @@ from app_qwen import demo as demo_qwen
 from app_sambanova import demo as demo_sambanova
 from app_together import demo as demo_together
 from app_xai import demo as demo_grok
+from app_flux import demo as demo_flux
 
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Meta Llama"):
@@ -47,6 +48,8 @@ with gr.Blocks(fill_height=True) as demo:
         demo_together.render()
     with gr.Tab("NVIDIA"):
         demo_nvidia.render()
+    with gr.Tab("Flux"):
+        demo_flux.render()
 
 if __name__ == "__main__":
     demo.launch(ssr_mode=False)
