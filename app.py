@@ -14,161 +14,139 @@ import together_gradio
 import nvidia_gradio
 import dashscope_gradio
 
+# Common helper functions for all tabs
+def create_interface(model_name, src_registry, **kwargs):
+    return gr.load(
+        name=model_name,
+        src=src_registry,
+        fill_height=True,
+        **kwargs
+    )
 
+def update_model(new_model, container, src_registry, **kwargs):
+    with container:
+        container.load_none()
+        new_interface = create_interface(new_model, src_registry, **kwargs)
+        new_interface.render()
 
 with gr.Blocks(fill_height=True) as demo:
+    # Meta Llama Tab
     with gr.Tab("Meta Llama"):
         with gr.Row():
             llama_model = gr.Dropdown(
                 choices=[
-                    'Meta-Llama-3.2-1B-Instruct',   # Llama 3.2 1B
-                    'Meta-Llama-3.2-3B-Instruct',   # Llama 3.2 3B
-                    'Llama-3.2-11B-Vision-Instruct',  # Llama 3.2 11B
-                    'Llama-3.2-90B-Vision-Instruct',  # Llama 3.2 90B
-                    'Meta-Llama-3.1-8B-Instruct',    # Llama 3.1 8B
-                    'Meta-Llama-3.1-70B-Instruct',   # Llama 3.1 70B
-                    'Meta-Llama-3.1-405B-Instruct'   # Llama 3.1 405B
+                    'Meta-Llama-3.2-1B-Instruct',
+                    'Meta-Llama-3.2-3B-Instruct',
+                    'Llama-3.2-11B-Vision-Instruct',
+                    'Llama-3.2-90B-Vision-Instruct',
+                    'Meta-Llama-3.1-8B-Instruct',
+                    'Meta-Llama-3.1-70B-Instruct',
+                    'Meta-Llama-3.1-405B-Instruct'
                 ],
-                value='Llama-3.2-90B-Vision-Instruct',  # Default to the most advanced model
+                value='Llama-3.2-90B-Vision-Instruct',
                 label="Select Llama Model",
                 interactive=True
             )
         
-        llama_interface = gr.load(
-            name=llama_model.value,
-            src=sambanova_gradio.registry,
-            multimodal=True,
-            fill_height=True
-        )
-        
-        def update_llama_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=sambanova_gradio.registry,
-                multimodal=True,
-                fill_height=True
-            )
+        with gr.Column() as llama_container:
+            llama_interface = create_interface(llama_model.value, sambanova_gradio.registry, multimodal=True)
         
         llama_model.change(
-            fn=update_llama_model,
+            fn=lambda new_model: update_model(new_model, llama_container, sambanova_gradio.registry, multimodal=True),
             inputs=[llama_model],
-            outputs=[llama_interface]
+            outputs=[]
         )
         
         gr.Markdown("**Note:** You need to use a SambaNova API key from [SambaNova Cloud](https://cloud.sambanova.ai/).")
+
+    # Gemini Tab
     with gr.Tab("Gemini"):
         with gr.Row():
             gemini_model = gr.Dropdown(
                 choices=[
-                    'gemini-1.5-flash',        # Fast and versatile performance
-                    'gemini-1.5-flash-8b',     # High volume, lower intelligence tasks
-                    'gemini-1.5-pro',           # Complex reasoning tasks
-                    'gemini-exp-1114'          # Quality improvements
+                    'gemini-1.5-flash',
+                    'gemini-1.5-flash-8b',
+                    'gemini-1.5-pro',
+                    'gemini-exp-1114'
                 ],
-                value='gemini-1.5-pro',      # Default to the most advanced model
+                value='gemini-1.5-pro',
                 label="Select Gemini Model",
                 interactive=True
             )
         
-        gemini_interface = gr.load(
-            name=gemini_model.value,
-            src=gemini_gradio.registry,
-            fill_height=True
-        )
-        
-        def update_gemini_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=gemini_gradio.registry,
-                fill_height=True
-            )
+        with gr.Column() as gemini_container:
+            gemini_interface = create_interface(gemini_model.value, gemini_gradio.registry)
         
         gemini_model.change(
-            fn=update_gemini_model,
+            fn=lambda new_model: update_model(new_model, gemini_container, gemini_gradio.registry),
             inputs=[gemini_model],
-            outputs=[gemini_interface]
+            outputs=[]
         )
+
+    # ChatGPT Tab
     with gr.Tab("ChatGPT"):
         with gr.Row():
             model_choice = gr.Dropdown(
                 choices=[
-                    'gpt-4o-2024-11-20',              # Latest GPT-4o model
-                    'gpt-4o',                         # Previous most advanced model
-                    'gpt-4o-2024-08-06',              # Latest snapshot
-                    'gpt-4o-2024-05-13',              # Original snapshot
-                    'chatgpt-4o-latest',          # Latest ChatGPT version
-                    'gpt-4o-mini',                # Small model
-                    'gpt-4o-mini-2024-07-18',     # Latest mini version
-                    'o1-preview',                 # Reasoning model
-                    'o1-preview-2024-09-12',      # Latest o1 model snapshot
-                    'o1-mini',                    # Faster reasoning model
-                    'o1-mini-2024-09-12',         # Latest o1-mini model snapshot
-                    'gpt-4-turbo',                # Latest GPT-4 Turbo model
-                    'gpt-4-turbo-2024-04-09',     # Latest GPT-4 Turbo snapshot
-                    'gpt-4-turbo-preview',         # GPT-4 Turbo preview model
-                    'gpt-4-0125-preview',         # GPT-4 Turbo preview model for laziness
-                    'gpt-4-1106-preview',         # Improved instruction following model
-                    'gpt-4',                      # Standard GPT-4 model
-                    'gpt-4-0613'                  # Snapshot of GPT-4 from June 2023
+                    'gpt-4o-2024-11-20',
+                    'gpt-4o',
+                    'gpt-4o-2024-08-06',
+                    'gpt-4o-2024-05-13',
+                    'chatgpt-4o-latest',
+                    'gpt-4o-mini',
+                    'gpt-4o-mini-2024-07-18',
+                    'o1-preview',
+                    'o1-preview-2024-09-12',
+                    'o1-mini',
+                    'o1-mini-2024-09-12',
+                    'gpt-4-turbo',
+                    'gpt-4-turbo-2024-04-09',
+                    'gpt-4-turbo-preview',
+                    'gpt-4-0125-preview',
+                    'gpt-4-1106-preview',
+                    'gpt-4',
+                    'gpt-4-0613'
                 ],
-                value='gpt-4o-2024-11-20',           # Updated default to latest model
+                value='gpt-4o-2024-11-20',
                 label="Select Model",
                 interactive=True
             )
-            
-        chatgpt_interface = gr.load(
-            name=model_choice.value,
-            src=openai_gradio.registry,
-            fill_height=True
-        )
         
-        def update_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=openai_gradio.registry,
-                fill_height=True
-            )
+        with gr.Column() as chatgpt_container:
+            chatgpt_interface = create_interface(model_choice.value, openai_gradio.registry)
         
         model_choice.change(
-            fn=update_model,
+            fn=lambda new_model: update_model(new_model, chatgpt_container, openai_gradio.registry),
             inputs=[model_choice],
-            outputs=[chatgpt_interface]
+            outputs=[]
         )
+
+    # Claude Tab
     with gr.Tab("Claude"):
         with gr.Row():
             claude_model = gr.Dropdown(
                 choices=[
-                    'claude-3-5-sonnet-20241022',  # Latest Sonnet
-                    'claude-3-5-haiku-20241022',   # Latest Haiku
-                    'claude-3-opus-20240229',       # Opus
-                    'claude-3-sonnet-20240229',     # Previous Sonnet
-                    'claude-3-haiku-20240307'       # Previous Haiku
+                    'claude-3-5-sonnet-20241022',
+                    'claude-3-5-haiku-20241022',
+                    'claude-3-opus-20240229',
+                    'claude-3-sonnet-20240229',
+                    'claude-3-haiku-20240307'
                 ],
-                value='claude-3-5-sonnet-20241022',  # Default to latest Sonnet
+                value='claude-3-5-sonnet-20241022',
                 label="Select Model",
                 interactive=True
             )
-            
-        claude_interface = gr.load(
-            name=claude_model.value,
-            src=anthropic_gradio.registry,
-            accept_token=True,
-            fill_height=True
-        )
         
-        def update_claude_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=anthropic_gradio.registry,
-                accept_token=True,
-                fill_height=True
-            )
+        with gr.Column() as claude_container:
+            claude_interface = create_interface(claude_model.value, anthropic_gradio.registry, accept_token=True)
         
         claude_model.change(
-            fn=update_claude_model,
+            fn=lambda new_model: update_model(new_model, claude_container, anthropic_gradio.registry, accept_token=True),
             inputs=[claude_model],
-            outputs=[claude_interface]
+            outputs=[]
         )
+
+    # Grok Tab
     with gr.Tab("Grok"):
         with gr.Row():
             grok_model = gr.Dropdown(
@@ -180,86 +158,58 @@ with gr.Blocks(fill_height=True) as demo:
                 label="Select Grok Model",
                 interactive=True
             )
-            
-        grok_interface = gr.load(
-            name=grok_model.value,
-            src=xai_gradio.registry,
-            fill_height=True
-        )
         
-        def update_grok_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=xai_gradio.registry,
-                fill_height=True
-            )
+        with gr.Column() as grok_container:
+            grok_interface = create_interface(grok_model.value, xai_gradio.registry)
         
         grok_model.change(
-            fn=update_grok_model,
+            fn=lambda new_model: update_model(new_model, grok_container, xai_gradio.registry),
             inputs=[grok_model],
-            outputs=[grok_interface]
+            outputs=[]
         )
+
+    # Hugging Face Tab
     with gr.Tab("Hugging Face"):
         with gr.Row():
             hf_model = gr.Dropdown(
                 choices=[
-                    # Latest Large Models
                     'Qwen/Qwen2.5-Coder-32B-Instruct',
                     'Qwen/Qwen2.5-72B-Instruct',
                     'meta-llama/Llama-3.1-70B-Instruct',
                     'mistralai/Mixtral-8x7B-Instruct-v0.1',
-                    # Mid-size Models
                     'meta-llama/Llama-3.1-8B-Instruct',
                     'google/gemma-2-9b-it',
                     'mistralai/Mistral-7B-v0.1',
                     'meta-llama/Llama-2-7b-chat-hf',
-                    # Smaller Models
                     'meta-llama/Llama-3.2-3B-Instruct',
                     'meta-llama/Llama-3.2-1B-Instruct',
                     'Qwen/Qwen2.5-1.5B-Instruct',
                     'microsoft/Phi-3.5-mini-instruct',
                     'HuggingFaceTB/SmolLM2-1.7B-Instruct',
                     'google/gemma-2-2b-it',
-                    # Base Models
                     'meta-llama/Llama-3.2-3B',
                     'meta-llama/Llama-3.2-1B',
                     'openai-community/gpt2'
                 ],
-                value='HuggingFaceTB/SmolLM2-1.7B-Instruct',  # Default to a powerful model
+                value='HuggingFaceTB/SmolLM2-1.7B-Instruct',
                 label="Select Hugging Face Model",
                 interactive=True
             )
-            
-        hf_interface = gr.load(
-            name=hf_model.value,
-            src="models",  # Use direct model loading from HF
-            fill_height=True
-        )
         
-        def update_hf_model(new_model):
-            return gr.load(
-                name=new_model,
-                src="models",
-                fill_height=True
-            )
+        with gr.Column() as hf_container:
+            hf_interface = create_interface(hf_model.value, "models")
         
         hf_model.change(
-            fn=update_hf_model,
+            fn=lambda new_model: update_model(new_model, hf_container, "models"),
             inputs=[hf_model],
-            outputs=[hf_interface]
+            outputs=[]
         )
         
         gr.Markdown("""
         **Note:** These models are loaded directly from Hugging Face Hub. Some models may require authentication.
-        
-        Models are organized by size:
-        - **Large Models**: 32B-72B parameters
-        - **Mid-size Models**: 7B-9B parameters
-        - **Smaller Models**: 1B-3B parameters
-        - **Base Models**: Original architectures
-        
-        Visit [Hugging Face](https://huggingface.co/) to learn more about available models.
         """)
+
+    # Groq Tab
     with gr.Tab("Groq"):
         with gr.Row():
             groq_model = gr.Dropdown(
@@ -274,282 +224,159 @@ with gr.Blocks(fill_height=True) as demo:
                     'gemma2-9b-it',
                     'gemma-7b-it'
                 ],
-                value='llama3-groq-70b-8192-tool-use-preview',  # Default to Groq's optimized model
+                value='llama3-groq-70b-8192-tool-use-preview',
                 label="Select Groq Model",
                 interactive=True
             )
-            
-        groq_interface = gr.load(
-            name=groq_model.value,
-            src=groq_gradio.registry,
-            fill_height=True
-        )
         
-        def update_groq_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=groq_gradio.registry,
-                fill_height=True
-            )
+        with gr.Column() as groq_container:
+            groq_interface = create_interface(groq_model.value, groq_gradio.registry)
         
         groq_model.change(
-            fn=update_groq_model,
+            fn=lambda new_model: update_model(new_model, groq_container, groq_gradio.registry),
             inputs=[groq_model],
-            outputs=[groq_interface]
+            outputs=[]
         )
-        
-        gr.Markdown("""
-        **Note:** You need a Groq API key to use these models. Get one at [Groq Cloud](https://console.groq.com/).
-        """)
+
+    # Hyperbolic Tab
     with gr.Tab("Hyperbolic"):
         with gr.Row():
             hyperbolic_model = gr.Dropdown(
                 choices=[
-                    # # Vision Models (TODO)
-                    # 'Qwen/Qwen2-VL-72B-Instruct',                       # 32K context
-                    # 'mistralai/Pixtral-12B-2409',                       # 32K context
-                    # 'Qwen/Qwen2-VL-7B-Instruct',                        # 32K context
-                    # Large Language Models
-                    'Qwen/Qwen2.5-Coder-32B-Instruct',                  # 131K context
-                    'meta-llama/Llama-3.2-3B-Instruct',                 # 131K context
-                    'meta-llama/Meta-Llama-3.1-8B-Instruct',            # 131k context
-                    'meta-llama/Meta-Llama-3.1-70B-Instruct',           # 32K context
-                    'meta-llama/Meta-Llama-3-70B-Instruct',             # 8K context
-                    'NousResearch/Hermes-3-Llama-3.1-70B',              # 12K context
-                    'Qwen/Qwen2.5-72B-Instruct',                        # 32K context
-                    'deepseek-ai/DeepSeek-V2.5',                        # 8K context
-                    'meta-llama/Meta-Llama-3.1-405B-Instruct',          # 8K context
+                    'Qwen/Qwen2.5-Coder-32B-Instruct',
+                    'meta-llama/Llama-3.2-3B-Instruct',
+                    'meta-llama/Meta-Llama-3.1-8B-Instruct',
+                    'meta-llama/Meta-Llama-3.1-70B-Instruct',
+                    'meta-llama/Meta-Llama-3-70B-Instruct',
+                    'NousResearch/Hermes-3-Llama-3.1-70B',
+                    'Qwen/Qwen2.5-72B-Instruct',
+                    'deepseek-ai/DeepSeek-V2.5',
+                    'meta-llama/Meta-Llama-3.1-405B-Instruct'
                 ],
                 value='Qwen/Qwen2.5-Coder-32B-Instruct',
                 label="Select Hyperbolic Model",
                 interactive=True
             )
-            
-        hyperbolic_interface = gr.load(
-            name=hyperbolic_model.value,
-            src=hyperbolic_gradio.registry,
-            fill_height=True
-        )
         
-        def update_hyperbolic_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=hyperbolic_gradio.registry,
-                fill_height=True
-            )
+        with gr.Column() as hyperbolic_container:
+            hyperbolic_interface = create_interface(hyperbolic_model.value, hyperbolic_gradio.registry)
         
         hyperbolic_model.change(
-            fn=update_hyperbolic_model,
+            fn=lambda new_model: update_model(new_model, hyperbolic_container, hyperbolic_gradio.registry),
             inputs=[hyperbolic_model],
-            outputs=[hyperbolic_interface]
+            outputs=[]
         )
-        
-        gr.Markdown("""
-        <div>
-            <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
-        </div>    
-                    
-        **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
-        """)
+
+    # Qwen Tab
     with gr.Tab("Qwen"):
         with gr.Row():
             qwen_model = gr.Dropdown(
                 choices=[
-                    # Proprietary Qwen Models
                     'qwen-turbo-latest',
                     'qwen-turbo',
                     'qwen-plus',
                     'qwen-max',
-                    # Open Source Qwen Models
                     'qwen1.5-110b-chat',
                     'qwen1.5-72b-chat',
                     'qwen1.5-32b-chat',
                     'qwen1.5-14b-chat',
                     'qwen1.5-7b-chat'
                 ],
-                value='qwen-turbo-latest',  # Default to the latest turbo model
+                value='qwen-turbo-latest',
                 label="Select Qwen Model",
                 interactive=True
             )
-            
-        qwen_interface = gr.load(
-            name=qwen_model.value,
-            src=dashscope_gradio.registry,
-            fill_height=True
-        )
         
-        def update_qwen_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=dashscope_gradio.registry,
-                fill_height=True
-            )
+        with gr.Column() as qwen_container:
+            qwen_interface = create_interface(qwen_model.value, dashscope_gradio.registry)
         
         qwen_model.change(
-            fn=update_qwen_model,
+            fn=lambda new_model: update_model(new_model, qwen_container, dashscope_gradio.registry),
             inputs=[qwen_model],
-            outputs=[qwen_interface]
+            outputs=[]
         )
-        
-        gr.Markdown("""
-        **Note:** You need a DashScope API key to use these models. Get one at [DashScope](https://dashscope.aliyun.com/).
-        
-        Models available in two categories:
-        - **Proprietary Models**:
-          - Qwen Turbo: Fast responses for general tasks
-          - Qwen Plus: Balanced performance and quality
-          - Qwen Max: Highest quality responses
-        - **Open Source Models**:
-          - Available in various sizes from 7B to 110B parameters
-          - Based on the Qwen 1.5 architecture
-        """)
+
+    # Perplexity Tab
     with gr.Tab("Perplexity"):
         with gr.Row():
             perplexity_model = gr.Dropdown(
                 choices=[
-                    # Sonar Models (Online)
-                    'llama-3.1-sonar-small-128k-online',    # 8B params
-                    'llama-3.1-sonar-large-128k-online',    # 70B params
-                    'llama-3.1-sonar-huge-128k-online',     # 405B params
-                    # Sonar Models (Chat)
-                    'llama-3.1-sonar-small-128k-chat',      # 8B params
-                    'llama-3.1-sonar-large-128k-chat',      # 70B params
-                    # Open Source Models
-                    'llama-3.1-8b-instruct',                # 8B params
-                    'llama-3.1-70b-instruct'                # 70B params
+                    'llama-3.1-sonar-small-128k-online',
+                    'llama-3.1-sonar-large-128k-online',
+                    'llama-3.1-sonar-huge-128k-online',
+                    'llama-3.1-sonar-small-128k-chat',
+                    'llama-3.1-sonar-large-128k-chat',
+                    'llama-3.1-8b-instruct',
+                    'llama-3.1-70b-instruct'
                 ],
-                value='llama-3.1-sonar-large-128k-online',  # Default to large online model
+                value='llama-3.1-sonar-large-128k-online',
                 label="Select Perplexity Model",
                 interactive=True
             )
         
-        perplexity_interface = gr.load(
-            name=perplexity_model.value,
-            src=perplexity_gradio.registry,
-            accept_token=True,
-            fill_height=True
-        )
-        
-        def update_perplexity_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=perplexity_gradio.registry,
-                accept_token=True,
-                fill_height=True
-            )
+        with gr.Column() as perplexity_container:
+            perplexity_interface = create_interface(perplexity_model.value, perplexity_gradio.registry, accept_token=True)
         
         perplexity_model.change(
-            fn=update_perplexity_model,
+            fn=lambda new_model: update_model(new_model, perplexity_container, perplexity_gradio.registry, accept_token=True),
             inputs=[perplexity_model],
-            outputs=[perplexity_interface]
+            outputs=[]
         )
-        
-        gr.Markdown("""
-        **Note:** Models are grouped into three categories:
-        - **Sonar Online Models**: Include search capabilities (beta access required)
-        - **Sonar Chat Models**: Standard chat models
-        - **Open Source Models**: Based on Hugging Face implementations
-        
-        For access to Online LLMs features, please fill out the [beta access form](https://perplexity.typeform.com/apiaccessform?typeform-source=docs.perplexity.ai).
-        """)
-    with gr.Tab("DeepSeek-V2.5"):
-        gr.load(
-            name='deepseek-ai/DeepSeek-V2.5',
-            src=hyperbolic_gradio.registry,
-            fill_height=True
-        )
-        gr.Markdown("""
-        <div>
-            <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
-        </div>    
-                    
-        **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
-        """)
+
+    # Mistral Tab
     with gr.Tab("Mistral"):
         with gr.Row():
             mistral_model = gr.Dropdown(
                 choices=[
-                    # Premier Models
-                    'mistral-large-latest',          # Top-tier reasoning model (128k)
-                    'pixtral-large-latest',          # Frontier-class multimodal model (128k)
-                    'ministral-3b-latest',           # Best edge model (128k)
-                    'ministral-8b-latest',           # High performance edge model (128k)
-                    'mistral-small-latest',          # Enterprise-grade small model (32k)
-                    'codestral-latest',              # Code-specialized model (32k)
-                    'mistral-embed',                 # Semantic text representation (8k)
-                    'mistral-moderation-latest',     # Content moderation service (8k)
-                    # Free Models
-                    'pixtral-12b-2409',             # Free 12B multimodal model (128k)
-                    'open-mistral-nemo',             # Multilingual model (128k)
-                    'open-codestral-mamba'           # Mamba-based coding model (256k)
+                    'mistral-large-latest',
+                    'pixtral-large-latest',
+                    'ministral-3b-latest',
+                    'ministral-8b-latest',
+                    'mistral-small-latest',
+                    'codestral-latest',
+                    'mistral-embed',
+                    'mistral-moderation-latest',
+                    'pixtral-12b-2409',
+                    'open-mistral-nemo',
+                    'open-codestral-mamba'
                 ],
-                value='pixtral-large-latest',    # pixtral for vision
+                value='pixtral-large-latest',
                 label="Select Mistral Model",
                 interactive=True
             )
-            
-        mistral_interface = gr.load(
-            name=mistral_model.value,
-            src=mistral_gradio.registry,
-            fill_height=True
-        )
         
-        def update_mistral_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=mistral_gradio.registry,
-                fill_height=True
-            )
+        with gr.Column() as mistral_container:
+            mistral_interface = create_interface(mistral_model.value, mistral_gradio.registry)
         
         mistral_model.change(
-            fn=update_mistral_model,
+            fn=lambda new_model: update_model(new_model, mistral_container, mistral_gradio.registry),
             inputs=[mistral_model],
-            outputs=[mistral_interface],
+            outputs=[]
         )
-        
-        gr.Markdown("""
-        **Note:** You need a Mistral API key to use these models. Get one at [Mistral AI Platform](https://console.mistral.ai/).
-        
-        Models are grouped into two categories:
-        - **Premier Models**: Require a paid API key
-        - **Free Models**: Available with free API keys
-        
-        Each model has different context window sizes (from 8k to 256k tokens) and specialized capabilities.
-        """)
+
+    # Fireworks Tab
     with gr.Tab("Fireworks"):
         with gr.Row():
             fireworks_model = gr.Dropdown(
                 choices=[
-                    'f1-preview',              # Latest F1 preview model
-                    'f1-mini-preview',         # Smaller, faster model
+                    'f1-preview',
+                    'f1-mini-preview'
                 ],
-                value='f1-preview',            # Default to preview model
+                value='f1-preview',
                 label="Select Fireworks Model",
                 interactive=True
             )
-            
-        fireworks_interface = gr.load(
-            name=fireworks_model.value,
-            src=fireworks_gradio.registry,
-            fill_height=True
-        )
         
-        def update_fireworks_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=fireworks_gradio.registry,
-                fill_height=True
-            )
+        with gr.Column() as fireworks_container:
+            fireworks_interface = create_interface(fireworks_model.value, fireworks_gradio.registry)
         
         fireworks_model.change(
-            fn=update_fireworks_model,
+            fn=lambda new_model: update_model(new_model, fireworks_container, fireworks_gradio.registry),
             inputs=[fireworks_model],
-            outputs=[fireworks_interface]
+            outputs=[]
         )
-        
-        gr.Markdown("""
-        **Note:** You need a Fireworks AI API key to use these models. Get one at [Fireworks AI](https://app.fireworks.ai/).
-        """)
+
+    # Cerebras Tab
     with gr.Tab("Cerebras"):
         with gr.Row():
             cerebras_model = gr.Dropdown(
@@ -558,120 +385,87 @@ with gr.Blocks(fill_height=True) as demo:
                     'llama3.1-70b',
                     'llama3.1-405b'
                 ],
-                value='llama3.1-70b',  # Default to mid-size model
+                value='llama3.1-70b',
                 label="Select Cerebras Model",
                 interactive=True
             )
-            
-        cerebras_interface = gr.load(
-            name=cerebras_model.value,
-            src=cerebras_gradio.registry,
-            accept_token=True,  # Added token acceptance
-            fill_height=True
-        )
         
-        def update_cerebras_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=cerebras_gradio.registry,
-                accept_token=True,  # Added token acceptance
-                fill_height=True
-            )
+        with gr.Column() as cerebras_container:
+            cerebras_interface = create_interface(cerebras_model.value, cerebras_gradio.registry, accept_token=True)
         
         cerebras_model.change(
-            fn=update_cerebras_model,
+            fn=lambda new_model: update_model(new_model, cerebras_container, cerebras_gradio.registry, accept_token=True),
             inputs=[cerebras_model],
-            outputs=[cerebras_interface]
+            outputs=[]
         )
+
+    # Together Tab
     with gr.Tab("Together"):
         with gr.Row():
             together_model = gr.Dropdown(
                 choices=[
-                    # Vision Models
-                    'meta-llama/Llama-Vision-Free',                     # 131k context (Free)
-                    'meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo',  # 131k context
-                    'meta-llama/Llama-3.2-90B-Vision-Instruct-Turbo',  # 131k context
-                    # Meta Llama 3.x Models
-                    'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',      # 131k context
-                    'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',     # 131k context
-                    'meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo',    # 130k context
-                    'meta-llama/Meta-Llama-3-8B-Instruct-Turbo',        # 8k context
-                    'meta-llama/Meta-Llama-3-70B-Instruct-Turbo',       # 8k context
-                    'meta-llama/Llama-3.2-3B-Instruct-Turbo',          # 131k context
-                    'meta-llama/Meta-Llama-3-8B-Instruct-Lite',         # 8k context, INT4
-                    'meta-llama/Meta-Llama-3-70B-Instruct-Lite',        # 8k context, INT4
-                    'meta-llama/Llama-3-8b-chat-hf',                    # 8k context
-                    'meta-llama/Llama-3-70b-chat-hf',                   # 8k context
-                    # Other Large Models
-                    'nvidia/Llama-3.1-Nemotron-70B-Instruct-HF',        # 32k context
-                    'Qwen/Qwen2.5-Coder-32B-Instruct',                  # 32k context
-                    'microsoft/WizardLM-2-8x22B',                       # 65k context
-                    'google/gemma-2-27b-it',                            # 8k context
-                    'google/gemma-2-9b-it',                             # 8k context
-                    'databricks/dbrx-instruct',                         # 32k context
-                    # Mixtral Models
-                    'mistralai/Mixtral-8x7B-Instruct-v0.1',            # 32k context
-                    'mistralai/Mixtral-8x22B-Instruct-v0.1',           # 65k context
-                    # Qwen Models
-                    'Qwen/Qwen2.5-7B-Instruct-Turbo',                  # 32k context
-                    'Qwen/Qwen2.5-72B-Instruct-Turbo',                 # 32k context
-                    'Qwen/Qwen2-72B-Instruct',                         # 32k context
-                    # Other Models
-                    'deepseek-ai/deepseek-llm-67b-chat',               # 4k context
-                    'google/gemma-2b-it',                              # 8k context
-                    'Gryphe/MythoMax-L2-13b',                          # 4k context
-                    'meta-llama/Llama-2-13b-chat-hf',                  # 4k context
-                    'mistralai/Mistral-7B-Instruct-v0.1',              # 8k context
-                    'mistralai/Mistral-7B-Instruct-v0.2',              # 32k context
-                    'mistralai/Mistral-7B-Instruct-v0.3',              # 32k context
-                    'NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO',     # 32k context
-                    'togethercomputer/StripedHyena-Nous-7B',           # 32k context
-                    'upstage/SOLAR-10.7B-Instruct-v1.0'                # 4k context
+                    'meta-llama/Llama-Vision-Free',
+                    'meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo',
+                    'meta-llama/Llama-3.2-90B-Vision-Instruct-Turbo',
+                    'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',
+                    'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+                    'meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo',
+                    'meta-llama/Meta-Llama-3-8B-Instruct-Turbo',
+                    'meta-llama/Meta-Llama-3-70B-Instruct-Turbo',
+                    'meta-llama/Llama-3.2-3B-Instruct-Turbo',
+                    'meta-llama/Meta-Llama-3-8B-Instruct-Lite',
+                    'meta-llama/Meta-Llama-3-70B-Instruct-Lite',
+                    'meta-llama/Llama-3-8b-chat-hf',
+                    'meta-llama/Llama-3-70b-chat-hf',
+                    'nvidia/Llama-3.1-Nemotron-70B-Instruct-HF',
+                    'Qwen/Qwen2.5-Coder-32B-Instruct',
+                    'microsoft/WizardLM-2-8x22B',
+                    'google/gemma-2-27b-it',
+                    'google/gemma-2-9b-it',
+                    'databricks/dbrx-instruct',
+                    'mistralai/Mixtral-8x7B-Instruct-v0.1',
+                    'mistralai/Mixtral-8x22B-Instruct-v0.1',
+                    'Qwen/Qwen2.5-7B-Instruct-Turbo',
+                    'Qwen/Qwen2.5-72B-Instruct-Turbo',
+                    'Qwen/Qwen2-72B-Instruct',
+                    'deepseek-ai/deepseek-llm-67b-chat',
+                    'google/gemma-2b-it',
+                    'Gryphe/MythoMax-L2-13b',
+                    'meta-llama/Llama-2-13b-chat-hf',
+                    'mistralai/Mistral-7B-Instruct-v0.1',
+                    'mistralai/Mistral-7B-Instruct-v0.2',
+                    'mistralai/Mistral-7B-Instruct-v0.3',
+                    'NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO',
+                    'togethercomputer/StripedHyena-Nous-7B',
+                    'upstage/SOLAR-10.7B-Instruct-v1.0'
                 ],
-                value='meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo',  # Default to recommended vision model
+                value='meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo',
                 label="Select Together Model",
                 interactive=True
             )
-            
-        together_interface = gr.load(
-            name=together_model.value,
-            src=together_gradio.registry,
-            multimodal=True,
-            fill_height=True
-        )
         
-        def update_together_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=together_gradio.registry,
-                multimodal=True,
-                fill_height=True
-            )
+        with gr.Column() as together_container:
+            together_interface = create_interface(together_model.value, together_gradio.registry, multimodal=True)
         
         together_model.change(
-            fn=update_together_model,
+            fn=lambda new_model: update_model(new_model, together_container, together_gradio.registry, multimodal=True),
             inputs=[together_model],
-            outputs=[together_interface]
+            outputs=[]
         )
-        
-        gr.Markdown("""
-        **Note:** You need a Together AI API key to use these models. Get one at [Together AI](https://www.together.ai/).
-        """)
+
+    # NVIDIA Tab
     with gr.Tab("NVIDIA"):
         with gr.Row():
             nvidia_model = gr.Dropdown(
                 choices=[
-                    # NVIDIA Models
                     'nvidia/llama3-chatqa-1.5-70b',
                     'nvidia/llama3-chatqa-1.5-8b',
                     'nvidia-nemotron-4-340b-instruct',
-                    # Meta Models
-                    'meta/llama-3.1-70b-instruct',    # Added Llama 3.1 70B
+                    'meta/llama-3.1-70b-instruct',
                     'meta/codellama-70b',
                     'meta/llama2-70b',
                     'meta/llama3-8b',
                     'meta/llama3-70b',
-                    # Mistral Models
                     'mistralai/codestral-22b-instruct-v0.1',
                     'mistralai/mathstral-7b-v0.1',
                     'mistralai/mistral-large-2-instruct',
@@ -680,7 +474,6 @@ with gr.Blocks(fill_height=True) as demo:
                     'mistralai/mixtral-8x7b-instruct',
                     'mistralai/mixtral-8x22b-instruct',
                     'mistralai/mistral-large',
-                    # Google Models
                     'google/gemma-2b',
                     'google/gemma-7b',
                     'google/gemma-2-2b-it',
@@ -690,57 +483,31 @@ with gr.Blocks(fill_height=True) as demo:
                     'google/codegemma-7b',
                     'google/recurrentgemma-2b',
                     'google/shieldgemma-9b',
-                    # Microsoft Phi-3 Models
                     'microsoft/phi-3-medium-128k-instruct',
                     'microsoft/phi-3-medium-4k-instruct',
                     'microsoft/phi-3-mini-128k-instruct',
                     'microsoft/phi-3-mini-4k-instruct',
                     'microsoft/phi-3-small-128k-instruct',
                     'microsoft/phi-3-small-8k-instruct',
-                    # Other Models
                     'qwen/qwen2-7b-instruct',
                     'databricks/dbrx-instruct',
                     'deepseek-ai/deepseek-coder-6.7b-instruct',
                     'upstage/solar-10.7b-instruct',
                     'snowflake/arctic'
                 ],
-                value='meta/llama-3.1-70b-instruct',  # Changed default to Llama 3.1 70B
+                value='meta/llama-3.1-70b-instruct',
                 label="Select NVIDIA Model",
                 interactive=True
             )
-            
-        nvidia_interface = gr.load(
-            name=nvidia_model.value,
-            src=nvidia_gradio.registry,
-            accept_token=True,
-            fill_height=True
-        )
         
-        def update_nvidia_model(new_model):
-            return gr.load(
-                name=new_model,
-                src=nvidia_gradio.registry,
-                accept_token=True,
-                fill_height=True
-            )
+        with gr.Column() as nvidia_container:
+            nvidia_interface = create_interface(nvidia_model.value, nvidia_gradio.registry, accept_token=True)
         
         nvidia_model.change(
-            fn=update_nvidia_model,
+            fn=lambda new_model: update_model(new_model, nvidia_container, nvidia_gradio.registry, accept_token=True),
             inputs=[nvidia_model],
-            outputs=[nvidia_interface]
+            outputs=[]
         )
-        
-        gr.Markdown("""
-        **Note:** You need an NVIDIA AI Foundation API key to use these models. Get one at [NVIDIA AI Foundation](https://www.nvidia.com/en-us/ai-data-science/foundation-models/).
-        
-        Models are organized by provider:
-        - **NVIDIA**: Native models including Llama3-ChatQA and Nemotron
-        - **Meta**: Llama family models
-        - **Mistral**: Various Mistral and Mixtral models
-        - **Google**: Gemma family models
-        - **Microsoft**: Phi-3 series
-        - And other providers including Qwen, Databricks, DeepSeek, etc.
-        """)
 
 demo.launch(ssr_mode=False)
 
