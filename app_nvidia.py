@@ -44,7 +44,7 @@ demo = get_app(
         "snowflake/arctic",
     ],
     default_model="meta/llama-3.1-70b-instruct",
-    registry=nvidia_gradio.registry,
+    src=nvidia_gradio.registry,
     accept_token=not os.getenv("NVIDIA_API_KEY"),
 )
 

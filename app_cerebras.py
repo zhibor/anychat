@@ -11,7 +11,7 @@ demo = get_app(
         "llama3.1-405b",
     ],
     default_model="llama3.1-70b",
-    registry=cerebras_gradio.registry,
+    src=cerebras_gradio.registry,
     accept_token=not os.getenv("CEREBRAS_API_KEY"),
 )
 

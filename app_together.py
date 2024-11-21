@@ -42,7 +42,7 @@ demo = get_app(
         "upstage/SOLAR-10.7B-Instruct-v1.0",
     ],
     default_model="meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
-    registry=together_gradio.registry,
+    src=together_gradio.registry,
     accept_token=not os.getenv("TOGETHER_API_KEY"),
     multimodal=True,
 )

@@ -17,7 +17,7 @@ demo = get_app(
         "gemma-7b-it",
     ],
     default_model="llama3-groq-70b-8192-tool-use-preview",
-    registry=groq_gradio.registry,
+    src=groq_gradio.registry,
     accept_token=not os.getenv("GROQ_API_KEY"),
 )
 

@@ -19,7 +19,7 @@ demo = get_app(
         "open-codestral-mamba",
     ],
     default_model="pixtral-large-latest",
-    registry=mistral_gradio.registry,
+    src=mistral_gradio.registry,
     accept_token=not os.getenv("MISTRAL_API_KEY"),
 )
 

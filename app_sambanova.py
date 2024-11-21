@@ -15,7 +15,7 @@ demo = get_app(
         "Meta-Llama-3.1-405B-Instruct",
     ],
     default_model="Llama-3.2-90B-Vision-Instruct",
-    registry=sambanova_gradio.registry,
+    src=sambanova_gradio.registry,
     accept_token=not os.getenv("SAMBANOVA_API_KEY"),
     multimodal=True,
 )

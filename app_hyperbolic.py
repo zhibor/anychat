@@ -17,7 +17,7 @@ demo = get_app(
         "meta-llama/Meta-Llama-3.1-405B-Instruct",
     ],
     default_model="Qwen/Qwen2.5-Coder-32B-Instruct",
-    registry=hyperbolic_gradio.registry,
+    src=hyperbolic_gradio.registry,
     accept_token=not os.getenv("HYPERBOLIC_API_KEY"),
 )
 

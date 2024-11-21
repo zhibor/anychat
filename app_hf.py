@@ -21,7 +21,7 @@ demo = get_app(
         "openai-community/gpt2",
     ],
     default_model="HuggingFaceTB/SmolLM2-1.7B-Instruct",
-    registry="models",
+    src="models",
 )
 
 if __name__ == "__main__":

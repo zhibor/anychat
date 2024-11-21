@@ -17,7 +17,7 @@ demo = get_app(
         "qwen1.5-7b-chat",
     ],
     default_model="qwen-turbo-latest",
-    registry=dashscope_gradio.registry,
+    src=dashscope_gradio.registry,
     accept_token=not os.getenv("DASHSCOPE_API_KEY"),
 )
 

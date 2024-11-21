@@ -10,7 +10,7 @@ demo = get_app(
         "f1-mini-preview",
     ],
     default_model="f1-preview",
-    registry=fireworks_gradio.registry,
+    src=fireworks_gradio.registry,
     accept_token=not os.getenv("FIREWORKS_API_KEY"),
 )
 

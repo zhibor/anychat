@@ -10,7 +10,7 @@ demo = get_app(
         "grok-vision-beta",
     ],
     default_model="grok-vision-beta",
-    registry=xai_gradio.registry,
+    src=xai_gradio.registry,
     accept_token=not os.getenv("XAI_API_KEY"),
 )
 

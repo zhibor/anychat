@@ -12,7 +12,7 @@ demo = get_app(
         "gemini-exp-1114",
     ],
     default_model="gemini-1.5-pro",
-    registry=gemini_gradio.registry,
+    src=gemini_gradio.registry,
     accept_token=not os.getenv("GEMINI_API_KEY"),
 )
 

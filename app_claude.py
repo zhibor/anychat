@@ -13,7 +13,7 @@ demo = get_app(
         "claude-3-haiku-20240307",
     ],
     default_model="claude-3-5-sonnet-20241022",
-    registry=anthropic_gradio.registry,
+    src=anthropic_gradio.registry,
     accept_token=not os.getenv("ANTHROPIC_API_KEY"),
 )
 
