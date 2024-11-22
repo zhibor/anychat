@@ -322,3 +322,4 @@ websockets==12.0
 xai-gradio==0.0.2
     # via anychat (pyproject.toml)
 replicate-gradio @ git+https://github.com/AK391/replicate-gradio.git
+fal-gradio @ git+https://github.com/AK391/fal-gradio.git

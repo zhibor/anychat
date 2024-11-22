@@ -15,6 +15,7 @@ from app_sambanova import demo as demo_sambanova
 from app_together import demo as demo_together
 from app_xai import demo as demo_grok
 from app_flux import demo as demo_flux
+from app_ltx_video import demo as demo_ltx_video
 
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Meta Llama"):
@@ -24,8 +25,8 @@ with gr.Blocks(fill_height=True) as demo:
         )
     with gr.Tab("Gemini"):
         demo_gemini.render()
-    with gr.Tab("SambaNova Qwen"):
-        demo_sambanova_qwen.render()
+    with gr.Tab("LTX Video"):
+        demo_ltx_video.render()
     with gr.Tab("ChatGPT"):
         demo_openai.render()
     with gr.Tab("Claude"):
