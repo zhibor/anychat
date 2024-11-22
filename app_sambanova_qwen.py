@@ -14,7 +14,6 @@ demo = get_app(
     default_model="Qwen2.5-Coder-32B-Instruct",
     src=sambanova_gradio.registry,
     accept_token=not os.getenv("SAMBANOVA_API_KEY"),
-    multimodal=True,
 )
 
 if __name__ == "__main__":
