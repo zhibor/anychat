@@ -15,6 +15,7 @@ from app_sambanova import demo as demo_sambanova
 from app_together import demo as demo_together
 from app_xai import demo as demo_grok
 from app_flux import demo as demo_flux
+from app_sambanova_qwen import demo as demo_sambanova_qwen
 
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Meta Llama"):
@@ -28,6 +29,8 @@ with gr.Blocks(fill_height=True) as demo:
         demo_openai.render()
     with gr.Tab("Claude"):
         demo_claude.render()
+    with gr.Tab("SambaNova Qwen"):
+        demo_sambanova_qwen.render()
     with gr.Tab("Grok"):
         demo_grok.render()
     with gr.Tab("Hugging Face"):
@@ -50,6 +53,7 @@ with gr.Blocks(fill_height=True) as demo:
         demo_nvidia.render()
     with gr.Tab("Flux"):
         demo_flux.render()
+
 
 if __name__ == "__main__":
     demo.queue(api_open=False).launch(ssr_mode=False, show_api=False)
