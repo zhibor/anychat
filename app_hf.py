@@ -11,7 +11,6 @@ demo = get_app(
     ],
     default_model="HuggingFaceTB/SmolLM2-1.7B-Instruct",
     src="models",
-    cache_examples=False
 )
 
 if __name__ == "__main__":

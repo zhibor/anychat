@@ -33,8 +33,6 @@ with gr.Blocks(fill_height=True) as demo:
         demo_claude.render()
     with gr.Tab("Grok"):
         demo_grok.render()
-    with gr.Tab("Hugging Face"):
-        demo_hf.render()
     with gr.Tab("Groq"):
         demo_groq.render()
     with gr.Tab("Hyperbolic"):
