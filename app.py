@@ -1,4 +1,5 @@
 import gradio as gr
+from app_marco_o1 import demo as demo_marco_o1
 from app_sambanova_qwen import demo as demo_sambanova_qwen
 from app_claude import demo as demo_claude
 from app_fireworks import demo as demo_fireworks
@@ -22,6 +23,8 @@ with gr.Blocks(fill_height=True) as demo:
         gr.Markdown(
             "**Note:** You need to use a SambaNova API key from [SambaNova Cloud](https://cloud.sambanova.ai/)."
         )
+    with gr.Tab("Marco-o1"):
+        demo_marco_o1.render()
     with gr.Tab("Gemini"):
         demo_gemini.render()
     with gr.Tab("LTX Video"):
