@@ -16,8 +16,11 @@ from app_together import demo as demo_together
 from app_xai import demo as demo_grok
 from app_flux import demo as demo_flux
 from app_ltx_video import demo as demo_ltx_video
+from app_experimental import demo as demo_experimental
 
 with gr.Blocks(fill_height=True) as demo:
+    with gr.Tab("Experimental"):
+        demo_experimental.render()
     with gr.Tab("Meta Llama"):
         demo_sambanova.render()
         gr.Markdown(
@@ -60,6 +63,7 @@ with gr.Blocks(fill_height=True) as demo:
         demo_nvidia.render()
     with gr.Tab("Flux"):
         demo_flux.render()
+ 
 
 
 if __name__ == "__main__":
