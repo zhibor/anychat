@@ -22,7 +22,7 @@ from app_allenai import demo as demo_allenai
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Experimental"):
         demo_experimental.render()
-    with gr.Tab("AllenAI"):
+    with gr.Tab("AllenAI/Llama-3.1-Tulu-3-8B"):
         demo_allenai.render()
     with gr.Tab("Meta Llama"):
         demo_sambanova.render()
