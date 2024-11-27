@@ -20,6 +20,8 @@ from app_experimental import demo as demo_experimental
 from app_allenai import demo as demo_allenai
 
 with gr.Blocks(fill_height=True) as demo:
+    with gr.Tab("Qwen"):
+        demo_qwen.render()
     with gr.Tab("Experimental"):
         demo_experimental.render()
     with gr.Tab("AllenAI/Llama-3.1-Tulu-3-8B"):
@@ -52,8 +54,6 @@ with gr.Blocks(fill_height=True) as demo:
                     
         **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
         """)
-    with gr.Tab("Qwen"):
-        demo_qwen.render()
     with gr.Tab("Perplexity"):
         demo_perplexity.render()
     with gr.Tab("Mistral"):
