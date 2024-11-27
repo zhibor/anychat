@@ -20,6 +20,7 @@ def get_app(
         for model_name in models:
             with gr.Column(visible=model_name == default_model) as column:
                 gr.load(name=model_name, src=src, accept_token=accept_token, **kwargs)
+
             columns.append(column)
 
         model.change(
@@ -29,5 +30,9 @@ def get_app(
             api_name=False,
             queue=False,
         )
+
+    for k, v in list(demo.fns.items()):
+        if isinstance(v.api_name, str) and "chat" in v.api_name:
+            del demo.fns[k]
 
     return demo
