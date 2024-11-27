@@ -17,10 +17,13 @@ from app_xai import demo as demo_grok
 from app_flux import demo as demo_flux
 from app_ltx_video import demo as demo_ltx_video
 from app_experimental import demo as demo_experimental
+from app_allenai import demo as demo_allenai
 
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Experimental"):
         demo_experimental.render()
+    with gr.Tab("AllenAI"):
+        demo_allenai.render()
     with gr.Tab("Meta Llama"):
         demo_sambanova.render()
         gr.Markdown(
