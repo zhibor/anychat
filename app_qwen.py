@@ -15,7 +15,7 @@ demo = get_app(
         "qwen1.5-32b-chat",
         "qwen1.5-14b-chat",
         "qwen1.5-7b-chat",
-        "QwQ-32B-preview"
+        "QwQ-32B-preview",
     ],
     default_model="qwen-turbo-latest",
     src=dashscope_gradio.registry,
