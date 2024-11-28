@@ -33,6 +33,8 @@ with gr.Blocks(fill_height=True) as demo:
         )
     with gr.Tab("Qwen"):
         demo_qwen.render()
+    with gr.Tab("Perplexity"):
+        demo_perplexity.render()
     with gr.Tab("Experimental"):
         demo_experimental.render()
     with gr.Tab("AllenAI"):
@@ -56,8 +58,6 @@ with gr.Blocks(fill_height=True) as demo:
         demo_grok.render()
     with gr.Tab("Groq"):
         demo_groq.render()
-    with gr.Tab("Perplexity"):
-        demo_perplexity.render()
     with gr.Tab("Mistral"):
         demo_mistral.render()
     with gr.Tab("Fireworks"):
