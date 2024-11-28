@@ -10,7 +10,7 @@ demo = get_app(
         "gemini-1.5-flash-8b",
         "gemini-1.5-pro",
         "gemini-exp-1114",
-        "gemini-exp-1121"
+        "gemini-exp-1121",
     ],
     default_model="gemini-1.5-flash",
     src=gemini_gradio.registry,
