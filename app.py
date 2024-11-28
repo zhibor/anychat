@@ -1,11 +1,15 @@
 import gradio as gr
-from app_marco_o1 import demo as demo_marco_o1
-from app_sambanova_qwen import demo as demo_sambanova_qwen
+
+from app_allenai import demo as demo_allenai
 from app_claude import demo as demo_claude
+from app_experimental import demo as demo_experimental
 from app_fireworks import demo as demo_fireworks
+from app_flux import demo as demo_flux
 from app_gemini import demo as demo_gemini
 from app_groq import demo as demo_groq
 from app_hyperbolic import demo as demo_hyperbolic
+from app_ltx_video import demo as demo_ltx_video
+from app_marco_o1 import demo as demo_marco_o1
 from app_mistral import demo as demo_mistral
 from app_nvidia import demo as demo_nvidia
 from app_openai import demo as demo_openai
@@ -14,21 +18,19 @@ from app_qwen import demo as demo_qwen
 from app_sambanova import demo as demo_sambanova
 from app_together import demo as demo_together
 from app_xai import demo as demo_grok
-from app_flux import demo as demo_flux
-from app_ltx_video import demo as demo_ltx_video
-from app_experimental import demo as demo_experimental
-from app_allenai import demo as demo_allenai
 
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Hyperbolic"):
         demo_hyperbolic.render()
-        gr.Markdown("""
+        gr.Markdown(
+            """
         <div>
             <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
-        </div>    
-                    
+        </div>
+
         **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
-        """)
+        """
+        )
     with gr.Tab("Qwen"):
         demo_qwen.render()
     with gr.Tab("Experimental"):
@@ -66,7 +68,6 @@ with gr.Blocks(fill_height=True) as demo:
         demo_nvidia.render()
     with gr.Tab("Flux"):
         demo_flux.render()
- 
 
 
 if __name__ == "__main__":
