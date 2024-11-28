@@ -1,5 +1,5 @@
-import os
 import fal_gradio
+
 from utils import get_app
 
 demo = get_app(
@@ -9,7 +9,6 @@ demo = get_app(
     ],
     default_model="fal-ai/ltx-video/image-to-video",
     src=fal_gradio.registry,
-    is_chat=False
 )
 
 if __name__ == "__main__":
