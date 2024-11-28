@@ -1,11 +1,13 @@
 import os
-import gradio as gr
-from typing import List, Dict, Callable
 import random
+from typing import Dict, List
+
 import google.generativeai as genai
-from anthropic import Anthropic
+import gradio as gr
 import openai
+from anthropic import Anthropic
 from openai import OpenAI  # Add explicit OpenAI import
+
 
 def get_all_models():
     """Get all available models from the registries."""
@@ -28,8 +30,10 @@ def get_all_models():
         "Hyperbolic: meta-llama/Meta-Llama-3.1-405B-Instruct",
     ]
 
+
 def generate_discussion_prompt(original_question: str, previous_responses: List[str]) -> str:
-    """Generate a prompt for models to discuss and build upon previous responses."""
+    """Generate a prompt for models to discuss and build upon previous
+    responses."""
     prompt = f"""You are participating in a multi-AI discussion about this question: "{original_question}"
 
 Previous responses from other AI models:
@@ -43,6 +47,7 @@ Please provide your perspective while:
 
 Keep your response focused and concise (max 3-4 paragraphs)."""
     return prompt
+
 
 def generate_consensus_prompt(original_question: str, discussion_history: List[str]) -> str:
     """Generate a prompt for final consensus building."""
@@ -59,67 +64,64 @@ As a final synthesizer, please:
 
 Keep the final consensus concise but complete."""
 
-def chat_with_openai(model: str, messages: List[Dict], api_key: str) -> str:
+
+def chat_with_openai(model: str, messages: List[Dict], api_key: str | None) -> str:
     import openai
+
     client = openai.OpenAI(api_key=api_key)
-    response = client.chat.completions.create(
-        model=model,
-        messages=messages
-    )
+    response = client.chat.completions.create(model=model, messages=messages)
     return response.choices[0].message.content
 
-def chat_with_anthropic(messages: List[Dict], api_key: str) -> str:
+
+def chat_with_anthropic(messages: List[Dict], api_key: str | None) -> str:
     """Chat with Anthropic's Claude model."""
     client = Anthropic(api_key=api_key)
-    response = client.messages.create(
-        model="claude-3-sonnet-20240229",
-        messages=messages,
-        max_tokens=1024
-    )
+    response = client.messages.create(model="claude-3-sonnet-20240229", messages=messages, max_tokens=1024)
     return response.content[0].text
 
-def chat_with_gemini(messages: List[Dict], api_key: str) -> str:
+
+def chat_with_gemini(messages: List[Dict], api_key: str | None) -> str:
     """Chat with Gemini Pro model."""
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-pro')
-    
+    model = genai.GenerativeModel("gemini-pro")
+
     # Convert messages to Gemini format
     gemini_messages = []
     for msg in messages:
         role = "user" if msg["role"] == "user" else "model"
         gemini_messages.append({"role": role, "parts": [msg["content"]]})
-    
+
     response = model.generate_content([m["parts"][0] for m in gemini_messages])
     return response.text
 
-def chat_with_sambanova(messages: List[Dict], api_key: str, model_name: str = "Llama-3.2-90B-Vision-Instruct") -> str:
+
+def chat_with_sambanova(
+    messages: List[Dict], api_key: str | None, model_name: str = "Llama-3.2-90B-Vision-Instruct"
+) -> str:
     """Chat with SambaNova's models using their OpenAI-compatible API."""
     client = openai.OpenAI(
         api_key=api_key,
         base_url="https://api.sambanova.ai/v1",
     )
-    
+
     response = client.chat.completions.create(
-        model=model_name,  # Use the specific model name passed in
-        messages=messages,
-        temperature=0.1,
-        top_p=0.1
+        model=model_name, messages=messages, temperature=0.1, top_p=0.1  # Use the specific model name passed in
     )
     return response.choices[0].message.content
 
-def chat_with_hyperbolic(messages: List[Dict], api_key: str, model_name: str = "Qwen/Qwen2.5-Coder-32B-Instruct") -> str:
+
+def chat_with_hyperbolic(
+    messages: List[Dict], api_key: str | None, model_name: str = "Qwen/Qwen2.5-Coder-32B-Instruct"
+) -> str:
     """Chat with Hyperbolic's models using their OpenAI-compatible API."""
-    client = OpenAI(
-        api_key=api_key,
-        base_url="https://api.hyperbolic.xyz/v1"
-    )
-    
+    client = OpenAI(api_key=api_key, base_url="https://api.hyperbolic.xyz/v1")
+
     # Add system message to the start of the messages list
     full_messages = [
         {"role": "system", "content": "You are a helpful assistant. Be descriptive and clear."},
-        *messages
+        *messages,
     ]
-    
+
     response = client.chat.completions.create(
         model=model_name,  # Use the specific model name passed in
         messages=full_messages,
@@ -128,152 +130,138 @@ def chat_with_hyperbolic(messages: List[Dict], api_key: str, model_name: str = "
     )
     return response.choices[0].message.content
 
+
 def multi_model_consensus(
-    question: str, 
-    selected_models: List[str], 
-    rounds: int = 3,
-    progress: gr.Progress = gr.Progress()
-) -> tuple[str, List[Dict]]:
+    question: str, selected_models: List[str], rounds: int = 3, progress: gr.Progress = gr.Progress()
+) -> list[tuple[str, str]]:
     if not selected_models:
-        return "Please select at least one model to chat with.", []
-    
+        raise gr.Error("Please select at least one model to chat with.")
+
     chat_history = []
     discussion_history = []
-    
+
     # Initial responses
     progress(0, desc="Getting initial responses...")
     initial_responses = []
     for i, model in enumerate(selected_models):
         provider, model_name = model.split(": ", 1)
-        
+
         try:
             if provider == "Anthropic":
                 api_key = os.getenv("ANTHROPIC_API_KEY")
-                response = chat_with_anthropic(
-                    messages=[{"role": "user", "content": question}],
-                    api_key=api_key
-                )
+                response = chat_with_anthropic(messages=[{"role": "user", "content": question}], api_key=api_key)
             elif provider == "SambaNova":
                 api_key = os.getenv("SAMBANOVA_API_KEY")
                 response = chat_with_sambanova(
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant"},
-                        {"role": "user", "content": question}
+                        {"role": "user", "content": question},
                     ],
-                    api_key=api_key
+                    api_key=api_key,
                 )
             elif provider == "Hyperbolic":  # Add Hyperbolic case
                 api_key = os.getenv("HYPERBOLIC_API_KEY")
-                response = chat_with_hyperbolic(
-                    messages=[{"role": "user", "content": question}],
-                    api_key=api_key
-                )
+                response = chat_with_hyperbolic(messages=[{"role": "user", "content": question}], api_key=api_key)
             else:  # Gemini
                 api_key = os.getenv("GEMINI_API_KEY")
-                response = chat_with_gemini(
-                    messages=[{"role": "user", "content": question}],
-                    api_key=api_key
-                )
-                
+                response = chat_with_gemini(messages=[{"role": "user", "content": question}], api_key=api_key)
+
             initial_responses.append(f"{model}: {response}")
             discussion_history.append(f"Initial response from {model}:\n{response}")
             chat_history.append((f"Initial response from {model}", response))
         except Exception as e:
             chat_history.append((f"Error from {model}", str(e)))
-    
+
     # Discussion rounds
     for round_num in range(rounds):
         progress((round_num + 1) / (rounds + 2), desc=f"Discussion round {round_num + 1}...")
         round_responses = []
-        
+
         random.shuffle(selected_models)  # Randomize order each round
         for model in selected_models:
             provider, model_name = model.split(": ", 1)
-            
+
             try:
                 discussion_prompt = generate_discussion_prompt(question, discussion_history)
                 if provider == "Anthropic":
                     api_key = os.getenv("ANTHROPIC_API_KEY")
                     response = chat_with_anthropic(
-                        messages=[{"role": "user", "content": discussion_prompt}],
-                        api_key=api_key
+                        messages=[{"role": "user", "content": discussion_prompt}], api_key=api_key
                     )
                 elif provider == "SambaNova":
                     api_key = os.getenv("SAMBANOVA_API_KEY")
                     response = chat_with_sambanova(
                         messages=[
                             {"role": "system", "content": "You are a helpful assistant"},
-                            {"role": "user", "content": discussion_prompt}
+                            {"role": "user", "content": discussion_prompt},
                         ],
-                        api_key=api_key
+                        api_key=api_key,
                     )
                 elif provider == "Hyperbolic":  # Add Hyperbolic case
                     api_key = os.getenv("HYPERBOLIC_API_KEY")
                     response = chat_with_hyperbolic(
-                        messages=[{"role": "user", "content": discussion_prompt}],
-                        api_key=api_key
+                        messages=[{"role": "user", "content": discussion_prompt}], api_key=api_key
                     )
                 else:  # Gemini
                     api_key = os.getenv("GEMINI_API_KEY")
                     response = chat_with_gemini(
-                        messages=[{"role": "user", "content": discussion_prompt}],
-                        api_key=api_key
+                        messages=[{"role": "user", "content": discussion_prompt}], api_key=api_key
                     )
-                    
+
                 round_responses.append(f"{model}: {response}")
                 discussion_history.append(f"Round {round_num + 1} - {model}:\n{response}")
                 chat_history.append((f"Round {round_num + 1} - {model}", response))
             except Exception as e:
                 chat_history.append((f"Error from {model} in round {round_num + 1}", str(e)))
-    
+
     # Final consensus
     progress(0.9, desc="Building final consensus...")
     model = selected_models[0]
     provider, model_name = model.split(": ", 1)
-    
+
     try:
         consensus_prompt = generate_consensus_prompt(question, discussion_history)
         if provider == "Anthropic":
             api_key = os.getenv("ANTHROPIC_API_KEY")
             final_consensus = chat_with_anthropic(
-                messages=[{"role": "user", "content": consensus_prompt}],
-                api_key=api_key
+                messages=[{"role": "user", "content": consensus_prompt}], api_key=api_key
             )
         elif provider == "SambaNova":
             api_key = os.getenv("SAMBANOVA_API_KEY")
             final_consensus = chat_with_sambanova(
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant"},
-                    {"role": "user", "content": consensus_prompt}
+                    {"role": "user", "content": consensus_prompt},
                 ],
-                api_key=api_key
+                api_key=api_key,
             )
         elif provider == "Hyperbolic":  # Add Hyperbolic case
             api_key = os.getenv("HYPERBOLIC_API_KEY")
             final_consensus = chat_with_hyperbolic(
-                messages=[{"role": "user", "content": consensus_prompt}],
-                api_key=api_key
+                messages=[{"role": "user", "content": consensus_prompt}], api_key=api_key
             )
         else:  # Gemini
             api_key = os.getenv("GEMINI_API_KEY")
             final_consensus = chat_with_gemini(
-                messages=[{"role": "user", "content": consensus_prompt}],
-                api_key=api_key
+                messages=[{"role": "user", "content": consensus_prompt}], api_key=api_key
             )
     except Exception as e:
         final_consensus = f"Error getting consensus from {model}: {str(e)}"
-    
+
     chat_history.append(("Final Consensus", final_consensus))
-    
+
     progress(1.0, desc="Done!")
     return chat_history
 
+
 with gr.Blocks() as demo:
     gr.Markdown("# Experimental Multi-Model Consensus Chat")
-    gr.Markdown("""Select multiple models to collaborate on answering your question. 
+    gr.Markdown(
+        """Select multiple models to collaborate on answering your question.
                 The models will discuss with each other and attempt to reach a consensus.
-                Maximum 3 models can be selected at once.""")
-    
+                Maximum 3 models can be selected at once."""
+    )
+
     with gr.Row():
         with gr.Column():
             model_selector = gr.Dropdown(
@@ -282,7 +270,7 @@ with gr.Blocks() as demo:
                 label="Select Models (max 3)",
                 info="Choose up to 3 models to participate in the discussion",
                 value=["SambaNova: Llama-3.2-90B-Vision-Instruct", "Hyperbolic: Qwen/Qwen2.5-Coder-32B-Instruct"],
-                max_choices=3
+                max_choices=3,
             )
             rounds_slider = gr.Slider(
                 minimum=1,
@@ -290,22 +278,20 @@ with gr.Blocks() as demo:
                 value=1,
                 step=1,
                 label="Discussion Rounds",
-                info="Number of rounds of discussion between models"
+                info="Number of rounds of discussion between models",
             )
-    
+
     chatbot = gr.Chatbot(height=600, label="Multi-Model Discussion")
     msg = gr.Textbox(label="Your Question", placeholder="Ask a question for the models to discuss...")
-    
+
     def respond(message, selected_models, rounds):
         chat_history = multi_model_consensus(message, selected_models, rounds)
         return chat_history
-    
-    msg.submit(
-        respond,
-        [msg, model_selector, rounds_slider],
-        [chatbot],
-        api_name="consensus_chat"
-    )
+
+    msg.submit(respond, [msg, model_selector, rounds_slider], [chatbot], api_name="consensus_chat")
+
+for fn in demo.fns.values():
+    fn.api_name = False
 
 if __name__ == "__main__":
-    demo.launch() 
+    demo.launch()
