@@ -20,6 +20,15 @@ from app_experimental import demo as demo_experimental
 from app_allenai import demo as demo_allenai
 
 with gr.Blocks(fill_height=True) as demo:
+    with gr.Tab("Hyperbolic"):
+        demo_hyperbolic.render()
+        gr.Markdown("""
+        <div>
+            <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
+        </div>    
+                    
+        **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
+        """)
     with gr.Tab("Qwen"):
         demo_qwen.render()
     with gr.Tab("Experimental"):
@@ -45,15 +54,6 @@ with gr.Blocks(fill_height=True) as demo:
         demo_grok.render()
     with gr.Tab("Groq"):
         demo_groq.render()
-    with gr.Tab("Hyperbolic"):
-        demo_hyperbolic.render()
-        gr.Markdown("""
-        <div>
-            <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
-        </div>    
-                    
-        **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
-        """)
     with gr.Tab("Perplexity"):
         demo_perplexity.render()
     with gr.Tab("Mistral"):

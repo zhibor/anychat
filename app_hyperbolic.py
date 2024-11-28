@@ -15,8 +15,9 @@ demo = get_app(
         "Qwen/Qwen2.5-72B-Instruct",
         "deepseek-ai/DeepSeek-V2.5",
         "meta-llama/Meta-Llama-3.1-405B-Instruct",
+        "Qwen/QwQ-32B-Preview",
     ],
-    default_model="Qwen/Qwen2.5-Coder-32B-Instruct",
+    default_model="Qwen/QwQ-32B-Preview",
     src=hyperbolic_gradio.registry,
     accept_token=not os.getenv("HYPERBOLIC_API_KEY"),
 )
