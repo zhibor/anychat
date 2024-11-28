@@ -7,7 +7,7 @@ demo = gr.load(name="allenai/Llama-3.1-Tulu-3-8B", src=transformers_gradio.regis
 demo.fn = spaces.GPU()(demo.fn)
 
 # Load OLMo model
-olmo_demo = gr.load(name="akhaliq/olmo-anychat")
+olmo_demo = gr.load(name="akhaliq/olmo-anychat", src="spaces")
 
 
 # Disable API names for both demos
