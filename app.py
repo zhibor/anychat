@@ -35,7 +35,7 @@ with gr.Blocks(fill_height=True) as demo:
         demo_qwen.render()
     with gr.Tab("Experimental"):
         demo_experimental.render()
-    with gr.Tab("AllenAI/Llama-3.1-Tulu-3-8B"):
+    with gr.Tab("AllenAI"):
         demo_allenai.render()
     with gr.Tab("Meta Llama"):
         demo_sambanova.render()
