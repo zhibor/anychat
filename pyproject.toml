@@ -8,17 +8,22 @@ dependencies = [
     "anthropic-gradio",
     "cerebras-gradio",
     "dashscope-gradio",
+    "fal-gradio",
     "fireworks-gradio",
     "gemini-gradio>=0.0.1",
-    "gradio>=5.6.0",
+    "gradio>=5.7.0",
     "groq-gradio>=0.0.2",
     "hyperbolic-gradio>=0.0.4",
     "mistral-gradio>=0.0.2",
     "nvidia-gradio",
     "openai-gradio>=0.0.4",
     "perplexity-gradio>=0.0.1",
+    "replicate-gradio",
     "sambanova-gradio>=0.1.9",
+    "spaces>=0.30.4",
     "together-gradio>=0.0.1",
+    "torch==2.4.0",
+    "transformers-gradio",
     "xai-gradio>=0.0.2",
 ]
 
@@ -28,6 +33,9 @@ fireworks-gradio = { git = "https://github.com/AK391/fireworks-ai-gradio.git" }
 cerebras-gradio = { git = "https://github.com/gradio-app/cerebras_gradio.git" }
 nvidia-gradio = { git = "https://github.com/AK391/nvidia-gradio.git" }
 dashscope-gradio = { git = "https://github.com/AK391/dashscope-gradio.git" }
+fal-gradio = { git = "https://github.com/AK391/fal-gradio.git" }
+replicate-gradio = { git = "https://github.com/AK391/replicate-gradio.git" }
+transformers-gradio = { git = "https://github.com/AK391/transformers-gradio.git" }
 
 [tool.ruff]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
