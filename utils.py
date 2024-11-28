@@ -33,7 +33,8 @@ def get_app(
         )
 
     if not is_chat:
-        demo.fns = {}
+        for k in list(demo.fns.keys()):
+            del demo.fns[k]
     else:
         for k, v in list(demo.fns.items()):
             if isinstance(v.api_name, str) and "chat" in v.api_name:
