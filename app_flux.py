@@ -11,6 +11,7 @@ demo = get_app(
     ],
     default_model="black-forest-labs/flux-depth-pro",
     src=replicate_gradio.registry,
+    is_chat=False
 )
 
 if __name__ == "__main__":

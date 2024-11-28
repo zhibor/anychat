@@ -8,6 +8,7 @@ def get_app(
     default_model: str,
     src: Callable[[str, str | None], gr.Blocks] | Literal["models"],
     accept_token: bool = False,
+    is_chat: bool = True,
     **kwargs,
 ) -> gr.Blocks:
     def update_model(new_model: str) -> list[gr.Column]:
@@ -31,8 +32,11 @@ def get_app(
             queue=False,
         )
 
-    for k, v in list(demo.fns.items()):
-        if isinstance(v.api_name, str) and "chat" in v.api_name:
-            del demo.fns[k]
+    if not is_chat:
+        demo.fns = {}
+    else:
+        for k, v in list(demo.fns.items()):
+            if isinstance(v.api_name, str) and "chat" in v.api_name:
+                del demo.fns[k]
 
     return demo
