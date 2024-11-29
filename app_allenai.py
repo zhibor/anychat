@@ -2,30 +2,41 @@ import gradio as gr
 import spaces
 import transformers_gradio
 
-# Load models
-llama_demo = gr.load(name="allenai/Llama-3.1-Tulu-3-8B", src=transformers_gradio.registry)
-llama_demo.fn = spaces.GPU()(llama_demo.fn)
+# Load Llama model
+demo = gr.load(name="akhaliq/allen-test", src="spaces")
 
+# Load OLMo model
 olmo_demo = gr.load(name="akhaliq/olmo-anychat", src="spaces")
 
-# Create the interface
-with gr.Blocks() as demo:
-    model_dropdown = gr.Dropdown(
-        choices=["allenai/Llama-3.1-Tulu-3-8B", "akhaliq/olmo-anychat"],
-        value="allenai/Llama-3.1-Tulu-3-8B",
+# Disable API names for both demos
+for fn in demo.fns.values():
+    fn.api_name = False
+for fn in olmo_demo.fns.values():
+    fn.api_name = False
+
+# Create a dropdown to select the model
+with gr.Blocks() as combined_demo:
+    model_choice = gr.Dropdown(
+        choices=["Llama", "OLMo"],
+        value="Llama",
         label="Select Model"
     )
     
-    def chat(message, model_name):
-        if model_name == "allenai/Llama-3.1-Tulu-3-8B":
-            return llama_demo.fn(message)
-        else:
-            return olmo_demo.fn(message)
+    with gr.Tab("Model Interface"):
+        # Create placeholder for the selected model's interface
+        placeholder = gr.HTML()
+        
+        def update_interface(choice):
+            if choice == "Llama":
+                return demo
+            else:
+                return olmo_demo
+        
+        model_choice.change(
+            fn=update_interface,
+            inputs=[model_choice],
+            outputs=[placeholder]
+        )
 
-    chatinterface = gr.ChatInterface(chat, additional_inputs=[model_dropdown])
-
-# Disable API names
-for fn in demo.fns.values():
-    fn.api_name = False
 
 
