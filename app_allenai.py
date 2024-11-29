@@ -76,7 +76,4 @@ with gr.Blocks() as interface:
         outputs=client,
     )
 
-interface.launch(show_error=True)
-
-
 

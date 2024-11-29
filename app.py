@@ -39,8 +39,6 @@ with gr.Blocks(fill_height=True) as demo:
         demo_perplexity.render()
     with gr.Tab("Experimental"):
         demo_experimental.render()
-    with gr.Tab("AllenAI"):
-        demo_allenai.render()
     with gr.Tab("Meta Llama"):
         demo_sambanova.render()
         gr.Markdown(
