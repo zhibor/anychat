@@ -2,8 +2,8 @@ from gradio_client import Client
 import gradio as gr
 
 MODELS = {
-    "Olmo": "akhaliq/olmo-anychat",
-    "Allen Test": "akhaliq/allen-test"
+    "OLMo-2-1124-13B-Instruct": "akhaliq/olmo-anychat",
+    "Llama-3.1-Tulu-3-8B": "akhaliq/allen-test"
 }
 
 def create_chat_fn(client):
@@ -21,7 +21,7 @@ def create_chat_fn(client):
         return response
     return chat
 
-def set_client_for_session(model_name: str, request: gr.Request):
+def set_client_for_session(model_name, request=None):
     headers = {}
     if request and hasattr(request, 'request') and hasattr(request.request, 'headers'):
         x_ip_token = request.request.headers.get('x-ip-token')
@@ -36,26 +36,18 @@ def safe_chat_fn(message, history, client):
     return create_chat_fn(client)(message, history)
 
 with gr.Blocks() as interface:
-    gr.Markdown("# AI Chat Interface")
     
     client = gr.State()
     
     model_dropdown = gr.Dropdown(
         choices=list(MODELS.keys()),
-        value="Olmo",
+        value="OLMo-2-1124-13B-Instruct",
         label="Select Model",
         interactive=True
     )
     
     chat_interface = gr.ChatInterface(
         fn=safe_chat_fn,
-        title="",
-        description="Chat with AI",
-        examples=[
-            ["Hello! How are you?", None],
-            ["What is machine learning?", None]
-        ],
-        cache_examples=False,
         additional_inputs=[client]
     )
     
@@ -72,8 +64,10 @@ with gr.Blocks() as interface:
     # Initialize client on page load
     interface.load(
         fn=set_client_for_session,
-        inputs=gr.State("Olmo"),  # Default model
+        inputs=gr.State("OLMo-2-1124-13B-Instruct"),
         outputs=client,
     )
+
+interface.launch()
 
 
