@@ -1,6 +1,5 @@
 import gradio as gr
 
-from app_allenai import demo as demo_allenai
 from app_claude import demo as demo_claude
 from app_experimental import demo as demo_experimental
 from app_fireworks import demo as demo_fireworks
