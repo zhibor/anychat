@@ -153,7 +153,7 @@ huggingface-hub==0.26.2
     # via
     #   gradio
     #   gradio-client
-hyperbolic-gradio==0.0.4
+hyperbolic-gradio==0.0.5
     # via anychat (pyproject.toml)
 idna==3.10
     # via
