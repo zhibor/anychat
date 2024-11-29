@@ -68,5 +68,7 @@ with gr.Blocks() as demo:
         outputs=client,
     )
 
+demo = demo
+
 
 
