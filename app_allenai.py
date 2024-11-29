@@ -35,7 +35,7 @@ def safe_chat_fn(message, history, client):
         return "Error: Client not initialized. Please refresh the page."
     return create_chat_fn(client)(message, history)
 
-with gr.Blocks() as interface:
+with gr.Blocks() as demo:
     
     client = gr.State()
     
@@ -62,7 +62,7 @@ with gr.Blocks() as interface:
     )
     
     # Initialize client on page load
-    interface.load(
+    demo.load(
         fn=set_client_for_session,
         inputs=gr.State("OLMo-2-1124-13B-Instruct"),
         outputs=client,
