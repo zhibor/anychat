@@ -14,7 +14,7 @@ demo = get_app(
         "llama-3.1-8b-instruct",
         "llama-3.1-70b-instruct",
     ],
-    default_model="llama-3.1-sonar-large-128k-online",
+    default_model="llama-3.1-sonar-huge-128k-online",
     src=perplexity_gradio.registry,
     accept_token=not os.getenv("PERPLEXITY_API_KEY"),
 )
