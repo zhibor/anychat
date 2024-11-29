@@ -33,6 +33,8 @@ with gr.Blocks(fill_height=True) as demo:
         )
     with gr.Tab("Qwen"):
         demo_qwen.render()
+    with gr.Tab("Grok"):
+        demo_grok.render()
     with gr.Tab("Perplexity"):
         demo_perplexity.render()
     with gr.Tab("Experimental"):
@@ -54,8 +56,6 @@ with gr.Blocks(fill_height=True) as demo:
         demo_openai.render()
     with gr.Tab("Claude"):
         demo_claude.render()
-    with gr.Tab("Grok"):
-        demo_grok.render()
     with gr.Tab("Groq"):
         demo_groq.render()
     with gr.Tab("Mistral"):
