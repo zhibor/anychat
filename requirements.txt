@@ -34,7 +34,7 @@ click==8.1.7
     # via
     #   typer
     #   uvicorn
-dashscope-gradio @ git+https://github.com/AK391/dashscope-gradio.git@3a8bab36087cbf5efcde17c695a10e0229784db4
+dashscope-gradio @ git+https://github.com/AK391/dashscope-gradio.git@7b9d7fc8d726229f5e46fff239baff280f973c8c
     # via anychat (pyproject.toml)
 distro==1.9.0
     # via
