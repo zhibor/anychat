@@ -70,7 +70,4 @@ with gr.Blocks() as demo:
 
 demo = demo
 
-demo.launch()
-
-
 
