@@ -21,7 +21,7 @@ def create_chat_fn(client):
         return response
     return chat
 
-def set_client_for_session(model_name, request=None):
+def set_client_for_session(model_name, request: gr.Request):
     headers = {}
     if request and hasattr(request, 'request') and hasattr(request.request, 'headers'):
         x_ip_token = request.request.headers.get('x-ip-token')
@@ -69,6 +69,8 @@ with gr.Blocks() as demo:
     )
 
 demo = demo
+
+demo.launch()
 
 
 
