@@ -20,6 +20,8 @@ from app_together import demo as demo_together
 from app_xai import demo as demo_grok
 
 with gr.Blocks(fill_height=True) as demo:
+    with gr.Tab("Grok"):
+        demo_grok.render()
     with gr.Tab("Hyperbolic"):
         demo_hyperbolic.render()
         gr.Markdown(
@@ -41,8 +43,6 @@ with gr.Blocks(fill_height=True) as demo:
         demo_qwen.render()
     with gr.Tab("AllenAI"):
         demo_allenai.render()
-    with gr.Tab("Grok"):
-        demo_grok.render()
     with gr.Tab("Perplexity"):
         demo_perplexity.render()
     with gr.Tab("Experimental"):
