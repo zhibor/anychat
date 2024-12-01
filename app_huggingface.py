@@ -2,7 +2,7 @@ from gradio_client import Client
 import gradio as gr
 
 MODELS = {
-    "SmolVLM-Instruct": "akhaliq/smolvlm-chat"
+    "SmolVLM-Instruct": "akhaliq/SmolVLM-Instruct"
 }
 
 def create_chat_fn(client):
