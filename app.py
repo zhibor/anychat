@@ -22,6 +22,8 @@ from app_xai import demo as demo_grok
 from app_showui import demo as demo_showui
 
 with gr.Blocks(fill_height=True) as demo:
+    with gr.Tab("ShowUI"):
+        demo_showui.render()
     with gr.Tab("PlayAI"):
         demo_playai.render()
     with gr.Tab("Grok"):
@@ -72,8 +74,6 @@ with gr.Blocks(fill_height=True) as demo:
         demo_nvidia.render()
     with gr.Tab("Flux"):
         demo_flux.render()
-    with gr.Tab("ShowUI"):
-        demo_showui.render()
 
 
 if __name__ == "__main__":
