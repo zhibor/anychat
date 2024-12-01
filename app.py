@@ -20,10 +20,6 @@ from app_together import demo as demo_together
 from app_xai import demo as demo_grok
 
 with gr.Blocks(fill_height=True) as demo:
-    with gr.Tab("ChatGPT"):
-        demo_openai.render()
-    with gr.Tab("Claude"):
-        demo_claude.render()
     with gr.Tab("Hyperbolic"):
         demo_hyperbolic.render()
         gr.Markdown(
@@ -35,6 +31,12 @@ with gr.Blocks(fill_height=True) as demo:
         **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
         """
         )
+    with gr.Tab("Gemini"):
+        demo_gemini.render()
+    with gr.Tab("ChatGPT"):
+        demo_openai.render()
+    with gr.Tab("Claude"):
+        demo_claude.render()
     with gr.Tab("Qwen"):
         demo_qwen.render()
     with gr.Tab("AllenAI"):
@@ -52,8 +54,6 @@ with gr.Blocks(fill_height=True) as demo:
         )
     with gr.Tab("Marco-o1"):
         demo_marco_o1.render()
-    with gr.Tab("Gemini"):
-        demo_gemini.render()
     with gr.Tab("LTX Video"):
         demo_ltx_video.render()
     with gr.Tab("Groq"):
