@@ -19,6 +19,7 @@ from app_qwen import demo as demo_qwen
 from app_sambanova import demo as demo_sambanova
 from app_together import demo as demo_together
 from app_xai import demo as demo_grok
+from app_showui import demo as demo_showui
 
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("PlayAI"):
@@ -71,6 +72,8 @@ with gr.Blocks(fill_height=True) as demo:
         demo_nvidia.render()
     with gr.Tab("Flux"):
         demo_flux.render()
+    with gr.Tab("ShowUI"):
+        demo_showui.render()
 
 
 if __name__ == "__main__":
