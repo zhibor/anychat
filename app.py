@@ -1,6 +1,5 @@
 import gradio as gr
 
-from app_huggingface import demo as demo_huggingface
 from app_allenai import demo as demo_allenai
 from app_claude import demo as demo_claude
 from app_experimental import demo as demo_experimental
@@ -21,8 +20,6 @@ from app_together import demo as demo_together
 from app_xai import demo as demo_grok
 
 with gr.Blocks(fill_height=True) as demo:
-    with gr.Tab("Hugging Face"):
-        demo_huggingface.render()
     with gr.Tab("Grok"):
         demo_grok.render()
     with gr.Tab("Hyperbolic"):

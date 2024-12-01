@@ -8,8 +8,13 @@ MODELS = {
 def create_chat_fn(client):
     def chat(message, history):
         response = client.predict(
-            message=message,
-            image=None,
+            message={"text": message, "files": []},
+            system_prompt="You are a helpful AI assistant.",
+            temperature=0.7,
+            max_new_tokens=1024,
+            top_k=40,
+            repetition_penalty=1.1,
+            top_p=0.95,
             api_name="/chat"
         )
         return response
@@ -42,7 +47,8 @@ with gr.Blocks() as demo:
     
     chat_interface = gr.ChatInterface(
         fn=safe_chat_fn,
-        additional_inputs=[client]
+        additional_inputs=[client],
+        multimodal=True
     )
     
     # Update client when model changes
@@ -64,4 +70,4 @@ with gr.Blocks() as demo:
 
 demo = demo
 
-
+demo.launch()
