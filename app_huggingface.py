@@ -78,5 +78,5 @@ with gr.Blocks() as demo:
         outputs=[client]
     )
 
-demo.launch()
+demo = demo
 
