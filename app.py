@@ -9,7 +9,7 @@ from app_flux import demo as demo_flux
 from app_gemini import demo as demo_gemini
 from app_groq import demo as demo_groq
 from app_hyperbolic import demo as demo_hyperbolic
-from app_ltx_video import demo as demo_ltx_video
+from app_fal import demo as demo_fal
 from app_marco_o1 import demo as demo_marco_o1
 from app_mistral import demo as demo_mistral
 from app_nvidia import demo as demo_nvidia
@@ -22,6 +22,9 @@ from app_xai import demo as demo_grok
 from app_showui import demo as demo_showui
 
 with gr.Blocks(fill_height=True) as demo:
+    with gr.Tab("Fal"):
+        demo_fal.render()
+        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("Hyperbolic"):
         demo_hyperbolic.render()
         gr.Markdown(
@@ -76,9 +79,6 @@ with gr.Blocks(fill_height=True) as demo:
         )
     with gr.Tab("Marco-o1"):
         demo_marco_o1.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("LTX Video"):
-        demo_ltx_video.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("Groq"):
         demo_groq.render()

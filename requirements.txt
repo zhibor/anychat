@@ -48,7 +48,7 @@ exceptiongroup==1.2.2
     # via anyio
 fal-client==0.5.6
     # via fal-gradio
-fal-gradio @ git+https://github.com/AK391/fal-gradio.git@8c360856e3847440036c643093c2cad823ecba99
+fal-gradio @ git+https://github.com/AK391/fal-gradio.git@532ef6b7a51492320179495831f3f309b208d6a6
     # via anychat (pyproject.toml)
 fastapi==0.115.5
     # via gradio
