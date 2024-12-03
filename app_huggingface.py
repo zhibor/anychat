@@ -1,4 +1,4 @@
-from gradio_client import Client
+from gradio_client import Client, handle_file
 import gradio as gr
 import os
 
@@ -8,9 +8,16 @@ MODELS = {
 }
 
 def create_chat_fn(client):
-    def chat(message, history, files=[]):
+    def chat(message, history):
+        # Extract text and files from the message
+        text = message.get("text", "")
+        files = message.get("files", [])
+        
+        # Handle file uploads if present
+        processed_files = [handle_file(f) for f in files]
+        
         response = client.predict(
-            message={"text": message, "files": files},
+            message={"text": text, "files": processed_files},
             system_prompt="You are a helpful AI assistant.",
             temperature=0.7,
             max_new_tokens=1024,
@@ -71,5 +78,5 @@ with gr.Blocks() as demo:
         outputs=[client]
     )
 
-demo = demo
+demo.launch()
 

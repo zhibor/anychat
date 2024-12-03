@@ -1,5 +1,6 @@
 import gradio as gr
 
+from app_huggingface import demo as demo_huggingface
 from app_playai import demo as demo_playai
 from app_allenai import demo as demo_allenai
 from app_claude import demo as demo_claude
@@ -22,6 +23,8 @@ from app_xai import demo as demo_grok
 from app_showui import demo as demo_showui
 
 with gr.Blocks(fill_height=True) as demo:
+    with gr.Tab("Huggingface"):
+        demo_huggingface.render()
     with gr.Tab("Fal"):
         demo_fal.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
