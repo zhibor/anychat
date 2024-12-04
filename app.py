@@ -17,6 +17,7 @@ from app_nvidia import demo as demo_nvidia
 from app_openai import demo as demo_openai
 from app_perplexity import demo as demo_perplexity
 from app_qwen import demo as demo_qwen
+from app_sailor import demo as demo_sailor
 from app_sambanova import demo as demo_sambanova
 from app_together import demo as demo_together
 from app_xai import demo as demo_grok
@@ -28,6 +29,9 @@ with gr.Blocks(fill_height=True) as demo:
     #     gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("Qwen"):
         demo_qwen.render()
+        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
+    with gr.Tab("Sailor"):
+        demo_sailor.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("Huggingface"):
         demo_huggingface.render()
