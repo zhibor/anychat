@@ -1,12 +1,12 @@
 import gradio as gr
 
+from app_replicate import demo as demo_replicate
 from app_huggingface import demo as demo_huggingface
 from app_playai import demo as demo_playai
 from app_allenai import demo as demo_allenai
 from app_claude import demo as demo_claude
 from app_experimental import demo as demo_experimental
 from app_fireworks import demo as demo_fireworks
-from app_replicate import demo as demo_replicate
 from app_gemini import demo as demo_gemini
 from app_groq import demo as demo_groq
 from app_hyperbolic import demo as demo_hyperbolic
