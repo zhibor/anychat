@@ -1,5 +1,4 @@
 import gradio as gr
-import spaces
 
 # Load the Gradio space
 demo = gr.load(name="internlm/MindSearch", src="spaces")
