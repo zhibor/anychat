@@ -8,9 +8,9 @@ demo = get_app(
         "black-forest-labs/flux-canny-pro",
         "black-forest-labs/flux-fill-pro",
         "black-forest-labs/flux-depth-dev",
-        "zsxkib/hunyuan-video:349dbe0feb6e8e4a6fab3c6a4dd642413e6c10735353de8b40f12abeee203617",
+        "tencent/hunyuan-video:140176772be3b423d14fdaf5403e6d4e38b85646ccad0c3fd2ed07c211f0cad1",
     ],
-    default_model="zsxkib/hunyuan-video:349dbe0feb6e8e4a6fab3c6a4dd642413e6c10735353de8b40f12abeee203617",
+    default_model="tencent/hunyuan-video:140176772be3b423d14fdaf5403e6d4e38b85646ccad0c3fd2ed07c211f0cad1",
     src=replicate_gradio.registry,
 )
 
