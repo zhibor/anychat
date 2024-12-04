@@ -34,6 +34,7 @@ nvidia-gradio = { git = "https://github.com/AK391/nvidia-gradio.git" }
 dashscope-gradio = { git = "https://github.com/AK391/dashscope-gradio.git" }
 fal-gradio = { git = "https://github.com/AK391/fal-gradio.git" }
 replicate-gradio = { git = "https://github.com/AK391/replicate-gradio.git" }
+mistral-gradio = { git = "https://github.com/AK391/mistral-gradio.git" }
 
 [tool.ruff]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
