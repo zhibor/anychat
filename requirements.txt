@@ -306,7 +306,7 @@ pyyaml==6.0.2
     #   huggingface-hub
 replicate==1.0.4
     # via replicate-gradio
-replicate-gradio @ git+https://github.com/AK391/replicate-gradio.git@bc614c0ef4f4522df1ef437ead33415dee5b68e7
+replicate-gradio @ git+https://github.com/AK391/replicate-gradio.git@9b15765861458b9c8b704bce615a32573aeeaf04
     # via anychat (pyproject.toml)
 requests==2.32.3
     # via
