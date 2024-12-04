@@ -1,6 +1,6 @@
 import gradio as gr
 
-from app_replicate import demo as demo_replicate
+#from app_replicate import demo as demo_replicate
 from app_huggingface import demo as demo_huggingface
 from app_playai import demo as demo_playai
 from app_allenai import demo as demo_allenai
@@ -23,9 +23,9 @@ from app_xai import demo as demo_grok
 from app_showui import demo as demo_showui
 
 with gr.Blocks(fill_height=True) as demo:
-    with gr.Tab("Replicate"):
-        demo_replicate.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
+    # with gr.Tab("Replicate"):
+    #     demo_replicate.render()
+    #     gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("Qwen"):
         demo_qwen.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
