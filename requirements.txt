@@ -178,7 +178,7 @@ markupsafe==2.1.5
     #   jinja2
 mdurl==0.1.2
     # via markdown-it-py
-mistral-gradio==0.0.2
+mistral-gradio
     # via anychat (pyproject.toml)
 mistralai==1.2.3
     # via mistral-gradio

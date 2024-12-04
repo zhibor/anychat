@@ -14,7 +14,7 @@ dependencies = [
     "gradio>=5.7.0",
     "groq-gradio>=0.0.2",
     "hyperbolic-gradio>=0.0.4",
-    "mistral-gradio>=0.0.2",
+    "mistral-gradio",
     "nvidia-gradio",
     "openai-gradio>=0.0.4",
     "perplexity-gradio>=0.0.1",
