@@ -15,8 +15,10 @@ demo = get_app(
         "mixtral-8x7b-32768",
         "gemma2-9b-it",
         "gemma-7b-it",
+        "llama-3.3-70b-versatile",
+        "llama-3.3-70b-specdec",
     ],
-    default_model="llama3-groq-70b-8192-tool-use-preview",
+    default_model="llama-3.3-70b-specdec",
     src=groq_gradio.registry,
     accept_token=not os.getenv("GROQ_API_KEY"),
 )
