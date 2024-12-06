@@ -1,5 +1,6 @@
 import gradio as gr
 
+from app_meta import demo as demo_meta
 from app_lumaai import demo as demo_lumaai
 from app_paligemma import demo as demo_paligemma
 from app_replicate import demo as demo_replicate
@@ -26,6 +27,9 @@ from app_xai import demo as demo_grok
 from app_showui import demo as demo_showui
 
 with gr.Blocks(fill_height=True) as demo:
+    with gr.Tab("Meta Llama 3.3 70B"):
+        demo_meta.render()
+        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("LumaAI"):
         demo_lumaai.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio.<img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>")
