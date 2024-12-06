@@ -25,7 +25,8 @@ from app_xai import demo as demo_grok
 from app_showui import demo as demo_showui
 
 with gr.Blocks(fill_height=True) as demo:
-    with gr.Tab("Paligemma"):
+    with gr.Tab("Paligemma 2"):
+        gr.Markdown("paligemma2-10b-ft-docci-448 is a fine-tuned version of Paligemma 2 on the DOCCI dataset, which can accomplish a wide range of captioning tasks, including text rendering, capturing spatial relations, and including world knowledge in captions.")
         demo_paligemma.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("Qwen"):
