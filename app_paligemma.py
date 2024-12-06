@@ -48,14 +48,6 @@ def safe_chat_fn(message, history, client, system_prompt, temperature,
 with gr.Blocks() as demo:
     client = gr.State()
     
-    with gr.Row():
-        model_dropdown = gr.Dropdown(
-            choices=list(MODELS.keys()),
-            value="paligemma2-10b-ft-docci-448",
-            label="Select Model",
-            interactive=True
-        )
-    
     with gr.Accordion("Advanced Settings", open=False):
         system_prompt = gr.Textbox(
             value="You are a helpful AI assistant.",
@@ -91,17 +83,10 @@ with gr.Blocks() as demo:
         multimodal=True
     )
     
-    # Add model change handler
-    model_dropdown.change(
-        fn=set_client_for_session,
-        inputs=[model_dropdown],
-        outputs=[client]
-    )
-    
-    # Initialize client on page load
+    # Initialize client on page load with default model
     demo.load(
         fn=set_client_for_session,
-        inputs=[gr.State("Paligemma-10B")],
+        inputs=[gr.State("Paligemma-10B")],  # Using default model
         outputs=[client]
     )
 
