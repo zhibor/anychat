@@ -51,7 +51,7 @@ with gr.Blocks() as demo:
     with gr.Row():
         model_dropdown = gr.Dropdown(
             choices=list(MODELS.keys()),
-            value="Paligemma-10B",
+            value="paligemma2-10b-ft-docci-448",
             label="Select Model",
             interactive=True
         )
