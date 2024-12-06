@@ -30,6 +30,19 @@ with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Groq (New Meta Llama 3.3 70B)"):
         demo_groq.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
+    with gr.Tab("Hyperbolic (New Meta Llama 3.3 70B)"):
+        demo_hyperbolic.render()
+        gr.Markdown(
+            """
+        <div>
+            <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
+        </div>
+
+        **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
+        
+        This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.
+        """
+        )
     with gr.Tab("Hugging Face (New Meta Llama 3.3 70B)"):
         demo_meta.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
@@ -54,19 +67,6 @@ with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Fal"):
         demo_fal.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Hyperbolic"):
-        demo_hyperbolic.render()
-        gr.Markdown(
-            """
-        <div>
-            <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
-        </div>
-
-        **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
-        
-        This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.
-        """
-        )
     with gr.Tab("ShowUI"):
         demo_showui.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
