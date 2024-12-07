@@ -8,8 +8,9 @@ demo = get_app(
     models=[
         "f1-preview",
         "f1-mini-preview",
+        "llama-v3p3-70b-instruct",
     ],
-    default_model="f1-preview",
+    default_model="llama-v3p3-70b-instruct",
     src=fireworks_gradio.registry,
     accept_token=not os.getenv("FIREWORKS_API_KEY"),
 )
