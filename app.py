@@ -25,6 +25,7 @@ from app_sambanova import demo as demo_sambanova
 from app_together import demo as demo_together
 from app_xai import demo as demo_grok
 from app_showui import demo as demo_showui
+from app_omini import demo as demo_omini
 
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Hyperbolic (New Meta Llama 3.3 70B)"):
@@ -117,6 +118,9 @@ with gr.Blocks(fill_height=True) as demo:
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("NVIDIA"):
         demo_nvidia.render()
+        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
+    with gr.Tab("OminiControl"):
+        demo_omini.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
 
 
