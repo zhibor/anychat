@@ -28,9 +28,6 @@ from app_showui import demo as demo_showui
 from app_omini import demo as demo_omini
 
 with gr.Blocks(fill_height=True) as demo:
-    with gr.Tab("Gemini"):
-        demo_gemini.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("Hyperbolic (New Meta Llama 3.3 70B)"):
         demo_hyperbolic.render()
         gr.Markdown(
@@ -44,6 +41,9 @@ with gr.Blocks(fill_height=True) as demo:
         This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.
         """
         )
+    with gr.Tab("Gemini"):
+        demo_gemini.render()
+        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("OminiControl"):
         demo_omini.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
