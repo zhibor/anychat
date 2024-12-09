@@ -28,6 +28,15 @@ from app_showui import demo as demo_showui
 from app_omini import demo as demo_omini
 
 with gr.Blocks(fill_height=True) as demo:
+    with gr.Tab("SambaNova (New Qwen 2.5 72B and Qwen 2.5 Coder 32B)"):
+        demo_sambanova.render()
+        gr.Markdown(
+            """
+        **Note:** You need to use a SambaNova API key from [SambaNova Cloud](https://cloud.sambanova.ai/).
+        
+        This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.
+        """
+        )
     with gr.Tab("Hyperbolic (New Meta Llama 3.3 70B)"):
         demo_hyperbolic.render()
         gr.Markdown(
@@ -104,15 +113,6 @@ with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Experimental"):
         demo_experimental.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Meta Llama"):
-        demo_sambanova.render()
-        gr.Markdown(
-            """
-        **Note:** You need to use a SambaNova API key from [SambaNova Cloud](https://cloud.sambanova.ai/).
-        
-        This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.
-        """
-        )
     with gr.Tab("Marco-o1"):
         demo_marco_o1.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
