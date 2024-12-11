@@ -31,7 +31,7 @@ with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Gemini"):
         demo_gemini.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("SambaNova (New Qwen 2.5 72B and Qwen 2.5 Coder 32B)"):
+    with gr.Tab("SambaNova (New Meta-Llama-3.3-70B-Instruct)"):
         demo_sambanova.render()
         gr.Markdown(
             """
