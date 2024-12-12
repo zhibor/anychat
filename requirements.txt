@@ -398,4 +398,5 @@ xai-gradio==0.0.2
 playai-gradio @ git+https://github.com/AK391/playai-gradio.git
 
 lumaai-gradio @ git+https://github.com/AK391/lumaai-gradio.git
-gradio_litmodel3d
+
+gradio_litmodel3d==0.0.1
