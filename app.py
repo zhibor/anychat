@@ -26,6 +26,7 @@ from app_together import demo as demo_together
 from app_xai import demo as demo_grok
 from app_showui import demo as demo_showui
 from app_omini import demo as demo_omini
+from app_trellis import demo as demo_trellis
 
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Gemini"):
@@ -122,7 +123,10 @@ with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("NVIDIA"):
         demo_nvidia.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-
+    with gr.Tab("TRELLIS"):
+        demo_trellis.render()
+        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
+    
 
 if __name__ == "__main__":
     demo.queue(api_open=False).launch(show_api=False)
