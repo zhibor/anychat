@@ -28,6 +28,9 @@ from app_showui import demo as demo_showui
 from app_omini import demo as demo_omini
 
 with gr.Blocks(fill_height=True) as demo:
+    with gr.Tab("Grok"):
+        demo_grok.render()
+        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("Gemini"):
         demo_gemini.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
@@ -94,9 +97,6 @@ with gr.Blocks(fill_height=True) as demo:
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("PlayAI"):
         demo_playai.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Grok"):
-        demo_grok.render()
         gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
     with gr.Tab("ChatGPT"):
         demo_openai.render()

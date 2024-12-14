@@ -8,8 +8,10 @@ demo = get_app(
     models=[
         "grok-beta",
         "grok-vision-beta",
+        "grok-2-vision-1212",
+        "grok-2-1212",
     ],
-    default_model="grok-vision-beta",
+    default_model="grok-2-vision-1212",
     src=xai_gradio.registry,
     accept_token=not os.getenv("XAI_API_KEY"),
 )
