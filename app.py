@@ -1,5 +1,6 @@
 import gradio as gr
 
+from app_cohere import demo as demo_cohere
 from app_meta import demo as demo_meta
 from app_lumaai import demo as demo_lumaai
 from app_paligemma import demo as demo_paligemma
@@ -30,10 +31,13 @@ from app_omini import demo as demo_omini
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Grok"):
         demo_grok.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
+        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>")
     with gr.Tab("Gemini"):
         demo_gemini.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
+        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>")
+    with gr.Tab("Cohere"):
+        demo_cohere.render()
+        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>")
     with gr.Tab("SambaNova (New Meta-Llama-3.3-70B-Instruct)"):
         demo_sambanova.render()
         gr.Markdown(
