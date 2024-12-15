@@ -16,13 +16,13 @@ from app_gemini import demo as demo_gemini
 from app_groq import demo as demo_groq
 from app_hyperbolic import demo as demo_hyperbolic
 from app_fal import demo as demo_fal
-from app_marco_o1 import demo as demo_marco_o1
+#from app_marco_o1 import demo as demo_marco_o1
 from app_mistral import demo as demo_mistral
 from app_nvidia import demo as demo_nvidia
 from app_openai import demo as demo_openai
 from app_perplexity import demo as demo_perplexity
 from app_qwen import demo as demo_qwen
-from app_sailor import demo as demo_sailor
+#from app_sailor import demo as demo_sailor
 from app_sambanova import demo as demo_sambanova
 from app_together import demo as demo_together
 from app_xai import demo as demo_grok
@@ -56,8 +56,8 @@ DEMOS = {
     "Experimental": demo_experimental,
     "Mistral": demo_mistral,
     "NVIDIA": demo_nvidia,
-    "Marco-o1": demo_marco_o1,
-    "Sailor": demo_sailor,
+    #"Marco-o1": demo_marco_o1,
+    #"Sailor": demo_sailor,
 }
 
 demo = get_app(
