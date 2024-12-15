@@ -8,13 +8,14 @@ def get_app(
     default_model: str,
     src: Union[Callable[[str, str | None], gr.Blocks], Literal["models"], Dict[str, gr.Blocks]],
     accept_token: bool = False,
+    dropdown_label: str = "Select Model",
     **kwargs,
 ) -> gr.Blocks:
     def update_model(new_model: str) -> list[gr.Column]:
         return [gr.Column(visible=model_name == new_model) for model_name in models]
 
     with gr.Blocks() as demo:
-        model = gr.Dropdown(label="Select Model", choices=models, value=default_model)
+        model = gr.Dropdown(label=dropdown_label, choices=models, value=default_model)
 
         columns = []
         for model_name in models:
