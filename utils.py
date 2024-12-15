@@ -1,4 +1,4 @@
-from typing import Callable, Literal
+from typing import Callable, Literal, Dict, Union
 
 import gradio as gr
 
@@ -6,7 +6,7 @@ import gradio as gr
 def get_app(
     models: list[str],
     default_model: str,
-    src: Callable[[str, str | None], gr.Blocks] | Literal["models"],
+    src: Union[Callable[[str, str | None], gr.Blocks], Literal["models"], Dict[str, gr.Blocks]],
     accept_token: bool = False,
     **kwargs,
 ) -> gr.Blocks:
@@ -19,8 +19,10 @@ def get_app(
         columns = []
         for model_name in models:
             with gr.Column(visible=model_name == default_model) as column:
-                gr.load(name=model_name, src=src, accept_token=accept_token, **kwargs)
-
+                if isinstance(src, dict):
+                    src[model_name].render()
+                else:
+                    gr.load(name=model_name, src=src, accept_token=accept_token, **kwargs)
             columns.append(column)
 
         model.change(

@@ -1,5 +1,6 @@
-import gradio as gr
+from utils import get_app
 
+# Import all demos
 from app_cohere import demo as demo_cohere
 from app_meta import demo as demo_meta
 from app_lumaai import demo as demo_lumaai
@@ -28,105 +29,42 @@ from app_xai import demo as demo_grok
 from app_showui import demo as demo_showui
 from app_omini import demo as demo_omini
 
-with gr.Blocks(fill_height=True) as demo:
-    with gr.Tab("Gemini"):
-        demo_gemini.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>")
-    with gr.Tab("Grok"):
-        demo_grok.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>")
-    with gr.Tab("Cohere"):
-        demo_cohere.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>")
-    with gr.Tab("SambaNova (New QwQ-32B-Preview)"):
-        demo_sambanova.render()
-        gr.Markdown(
-            """
-        **Note:** You need to use a SambaNova API key from [SambaNova Cloud](https://cloud.sambanova.ai/).
-        
-        This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.
-        """
-        )
-    with gr.Tab("Hyperbolic (New Meta Llama 3.3 70B)"):
-        demo_hyperbolic.render()
-        gr.Markdown(
-            """
-        <div>
-            <img src="https://storage.googleapis.com/public-arena-asset/hyperbolic_logo.png" alt="Hyperbolic Logo" style="height: 50px; margin-right: 10px;">
-        </div>
+# Create mapping of models to their demos
+DEMOS = {
+    "Gemini": demo_gemini,
+    "Grok": demo_grok,
+    "Cohere": demo_cohere,
+    "SambaNova": demo_sambanova,
+    "Hyperbolic": demo_hyperbolic,
+    "OminiControl": demo_omini,
+    "Fireworks": demo_fireworks,
+    "Together": demo_together,
+    "Groq": demo_groq,
+    "Meta Llama": demo_meta,
+    "LumaAI": demo_lumaai,
+    "Paligemma": demo_paligemma,
+    "Qwen": demo_qwen,
+    "Replicate": demo_replicate,
+    "Huggingface": demo_huggingface,
+    "Fal": demo_fal,
+    "ShowUI": demo_showui,
+    "PlayAI": demo_playai,
+    "ChatGPT": demo_openai,
+    "Claude": demo_claude,
+    "Allen AI": demo_allenai,
+    "Perplexity": demo_perplexity,
+    "Experimental": demo_experimental,
+    "Mistral": demo_mistral,
+    "NVIDIA": demo_nvidia,
+    "Marco-o1": demo_marco_o1,
+    "Sailor": demo_sailor,
+}
 
-        **Note:** This model is supported by Hyperbolic. Build your AI apps at [Hyperbolic](https://app.hyperbolic.xyz/).
-        
-        This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.
-        """
-        )
-    with gr.Tab("OminiControl"):
-        demo_omini.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Fireworks (New Meta Llama 3.3 70B)"):
-        demo_fireworks.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Together (New Meta Llama 3.3 70B)"):
-        demo_together.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Groq (New Meta Llama 3.3 70B)"):
-        demo_groq.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Hugging Face (New Meta Llama 3.3 70B)"):
-        demo_meta.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("LumaAI"):
-        demo_lumaai.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio.<img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>")
-    with gr.Tab("Paligemma 2"):
-        gr.Markdown("paligemma2-10b-ft-docci-448 is a fine-tuned version of Paligemma 2 on the DOCCI dataset, which can accomplish a wide range of captioning tasks, including text rendering, capturing spatial relations, and including world knowledge in captions.")
-        demo_paligemma.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Qwen"):
-        demo_qwen.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Replicate"):
-        demo_replicate.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Sailor"):
-        demo_sailor.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Huggingface"):
-        demo_huggingface.render()
-    with gr.Tab("Fal"):
-        demo_fal.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("ShowUI"):
-        demo_showui.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("PlayAI"):
-        demo_playai.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("ChatGPT"):
-        demo_openai.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Claude"):
-        demo_claude.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Allen AI"):
-        demo_allenai.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Perplexity"):
-        demo_perplexity.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Experimental"):
-        demo_experimental.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Marco-o1"):
-        demo_marco_o1.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("Mistral"):
-        demo_mistral.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    with gr.Tab("NVIDIA"):
-        demo_nvidia.render()
-        gr.Markdown("This app is built with gradio, check out gradio github and star: <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.")
-    
+demo = get_app(
+    models=list(DEMOS.keys()),
+    default_model="Gemini",
+    src=DEMOS,
+)
 
 if __name__ == "__main__":
     demo.queue(api_open=False).launch(show_api=False)
